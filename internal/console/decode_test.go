@@ -208,6 +208,35 @@ func TestConsoleFilenames(t *testing.T) {
 	if base, err := BaseName("1073741824.mem"); err != nil || base != 0x40000000 {
 		t.Fatalf("base=%#x error=%v", base, err)
 	}
+	if base, err := BaseName("4294963200.mem"); err != nil || base != 0xfffff000 {
+		t.Fatalf("maximum aligned base=%#x error=%v", base, err)
+	}
+}
+
+func TestPrintableEncodingsAndControls(t *testing.T) {
+	cases := []struct {
+		name     string
+		input    []byte
+		text     string
+		encoding string
+		ok       bool
+	}{
+		{"ascii", []byte("hello"), "hello", "ascii", true},
+		{"utf8", []byte("hello\xc2\xa0world"), "hello\u00a0world", "utf-8", true},
+		{"latin1", []byte{0xff}, "\u00ff", "latin-1", true},
+		{"line controls", []byte("a\t\r\nb"), "a\t\r\nb", "ascii", true},
+		{"nul", []byte{'a', 0}, "", "", false},
+		{"invalid utf8 control", []byte{0xc2, 0x01}, "", "", false},
+		{"other space", []byte("a\xe2\x80\x87b"), "", "", false},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			text, encoding, ok := printable(tc.input)
+			if text != tc.text || encoding != tc.encoding || ok != tc.ok {
+				t.Fatalf("printable(%q) = (%q, %q, %v), want (%q, %q, %v)", tc.input, text, encoding, ok, tc.text, tc.encoding, tc.ok)
+			}
+		})
+	}
 }
 
 func TestConsoleWorkBudgets(t *testing.T) {
