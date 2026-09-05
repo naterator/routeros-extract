@@ -1,7 +1,7 @@
 # routeros-extract
 
 `routeros-extract` is a native Go command-line tool for inspecting RouterOS
-`.npk` packages and the payloads nested inside them. It has no external
+`.npk` packages and the payloads nested inside them. It has no non-Go external
 dependencies.
 
 ## Download and get started
