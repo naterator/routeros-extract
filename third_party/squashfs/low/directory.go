@@ -3,7 +3,7 @@ package squashfslow
 import (
 	"errors"
 	"io/fs"
-	"path/filepath"
+	"path"
 	"slices"
 	"strings"
 
@@ -54,12 +54,12 @@ func (r Reader) directoryFromRef(ref uint64, name string) (Directory, error) {
 	}, nil
 }
 
-func (d Directory) Open(r Reader, path string) (FileBase, error) {
-	path = filepath.Clean(path)
-	if path == "." || path == "" {
+func (d Directory) Open(r Reader, name string) (FileBase, error) {
+	name = path.Clean(name)
+	if name == "." || name == "" {
 		return d.FileBase, nil
 	}
-	split := strings.Split(path, "/")
+	split := strings.Split(name, "/")
 	i, found := slices.BinarySearchFunc(d.Entries, split[0], func(e directory.Entry, name string) int {
 		return strings.Compare(e.Name, name)
 	})

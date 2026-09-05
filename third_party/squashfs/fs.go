@@ -4,15 +4,16 @@ import (
 	"io"
 	"io/fs"
 	"path"
-	"path/filepath"
 	"slices"
 	"strings"
 
 	squashfslow "github.com/CalebQ42/squashfs/low"
 	"github.com/CalebQ42/squashfs/low/directory"
+	"github.com/CalebQ42/squashfs/low/inode"
 )
 
 // FS is a fs.FS representation of a squashfs directory.
+// Archive paths use forward slashes on every host, as required by io/fs.
 // Implements fs.GlobFS, fs.ReadDirFS, fs.ReadFileFS, fs.StatFS, and fs.SubFS
 type FS struct {
 	r      *Reader
@@ -31,9 +32,9 @@ func (r *Reader) FSFromDirectory(d squashfslow.Directory, parent FS) FS {
 
 // Glob returns the name of the files at the given pattern.
 // All paths are relative to the FS.
-// Uses filepath.Match to compare names.
-func (f *FS) Glob(pattern string) (out []string, err error) {
-	pattern = filepath.Clean(pattern)
+// Uses path.Match to compare names; archive paths always use forward slashes.
+func (f FS) Glob(pattern string) (out []string, err error) {
+	pattern = path.Clean(pattern)
 	if !fs.ValidPath(pattern) {
 		return nil, &fs.PathError{
 			Op:   "glob",
@@ -48,7 +49,10 @@ func (f *FS) Glob(pattern string) (out []string, err error) {
 				out = append(out, f.LowDir.Entries[i].Name)
 				continue
 			}
-			sub, err := f.Sub(split[0])
+			if typ := f.LowDir.Entries[i].InodeType; typ != inode.Dir && typ != inode.EDir {
+				continue
+			}
+			sub, err := f.Sub(f.LowDir.Entries[i].Name)
 			if err != nil {
 				if pathErr, ok := err.(*fs.PathError); ok {
 					if pathErr.Err == fs.ErrNotExist {
@@ -80,8 +84,8 @@ func (f *FS) Glob(pattern string) (out []string, err error) {
 					Err:  err,
 				}
 			}
-			for i := range subGlob {
-				subGlob[i] = f.LowDir.Name + "/" + subGlob[i]
+			for j := range subGlob {
+				subGlob[j] = path.Join(f.LowDir.Entries[i].Name, subGlob[j])
 			}
 			out = append(out, subGlob...)
 		}
@@ -95,7 +99,7 @@ func (f FS) Open(name string) (fs.File, error) {
 }
 
 func (f FS) OpenFile(name string) (*File, error) {
-	name = filepath.Clean(name)
+	name = path.Clean(name)
 	if !fs.ValidPath(name) {
 		return nil, &fs.PathError{
 			Op:   "open",
@@ -156,7 +160,7 @@ func (f FS) OpenFile(name string) (*File, error) {
 // Returns all DirEntry's for the directory at name.
 // If name is not a directory, returns an error.
 func (f FS) ReadDir(name string) ([]fs.DirEntry, error) {
-	name = filepath.Clean(name)
+	name = path.Clean(name)
 	if !fs.ValidPath(name) {
 		return nil, &fs.PathError{
 			Op:   "readdir",
@@ -176,7 +180,7 @@ func (f FS) ReadDir(name string) ([]fs.DirEntry, error) {
 
 // Returns the contents of the file at name.
 func (f FS) ReadFile(name string) (out []byte, err error) {
-	name = filepath.Clean(name)
+	name = path.Clean(name)
 	if !fs.ValidPath(name) {
 		return nil, &fs.PathError{
 			Op:   "readfile",
@@ -199,7 +203,7 @@ func (f FS) ReadFile(name string) (out []byte, err error) {
 
 // Returns the fs.FileInfo for the file at name.
 func (f FS) Stat(name string) (fs.FileInfo, error) {
-	name = filepath.Clean(name)
+	name = path.Clean(name)
 	if !fs.ValidPath(name) {
 		return nil, &fs.PathError{
 			Op:   "stat",
@@ -219,7 +223,7 @@ func (f FS) Stat(name string) (fs.FileInfo, error) {
 
 // Returns the FS at dir
 func (f FS) Sub(dir string) (fs.FS, error) {
-	dir = filepath.Clean(dir)
+	dir = path.Clean(dir)
 	if !fs.ValidPath(dir) {
 		return nil, &fs.PathError{
 			Op:   "dir",
@@ -275,5 +279,5 @@ func (f FS) path() string {
 	if f.parent == nil {
 		return f.LowDir.Name
 	}
-	return filepath.Join(f.parent.path(), f.LowDir.Name)
+	return path.Join(f.parent.path(), f.LowDir.Name)
 }

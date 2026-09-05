@@ -12,6 +12,10 @@ corpus instead; local decoder tests require no downloads.
 
 Local changes:
 
+- Use slash-separated archive paths for filesystem lookup, globbing, and
+  symlink inspection on every host. Keep OS-specific path handling for host
+  output paths. Nested globs preserve their directory prefixes and work with
+  the filesystem values returned by `Sub`.
 - Replace the GPL-licensed `rasky/go-lzo` dependency with
   [`anchore/go-lzo v0.1.1`](https://github.com/anchore/go-lzo/tree/v0.1.1),
   licensed under MIT. LZO remains enabled in ordinary builds. The upstream

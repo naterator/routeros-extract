@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -64,7 +65,7 @@ func (f File) GetSymlinkFile() fs.File {
 	if !f.IsSymlink() {
 		return nil
 	}
-	if filepath.IsAbs(f.SymlinkPath()) {
+	if path.IsAbs(f.SymlinkPath()) {
 		return nil
 	}
 	fil, err := f.parent.Open(f.SymlinkPath())
@@ -205,7 +206,7 @@ func (f File) path() string {
 	if f.parent.LowDir.Name == "" {
 		return f.Low.Name
 	}
-	return filepath.Join(f.parent.path(), f.Low.Name)
+	return path.Join(f.parent.path(), f.Low.Name)
 }
 
 // Extract the file to the given folder. If the file is a folder, the folder's contents will be extracted to the folder.
