@@ -1,0 +1,13 @@
+/bin/
+/routeros-extract
+/routeros-extract.exe
+/extracted/
+/out/
+/.cache/
+.routeros-extract-corpus/
+*.npk
+all_packages*.zip
+*.test
+*.test.exe
+coverage.out
+.DS_Store

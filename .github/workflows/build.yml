@@ -1,0 +1,94 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test and Vet (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache-dependency-path: |
+            go.sum
+            third_party/squashfs/go.sum
+      - name: Test All Modules
+        run: |
+          go test ./...
+          (cd third_party/xz && go test ./...)
+          (cd third_party/squashfs && go test ./...)
+      - name: Vet All Modules
+        run: |
+          go vet ./...
+          (cd third_party/xz && go vet ./...)
+          (cd third_party/squashfs && go vet ./...)
+
+  upload-release-documents:
+    name: Upload Release Documentation
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Upload Documentation and Licenses
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release upload "$RELEASE_TAG" \
+            README.md LICENSE AUTHORS \
+            --clobber
+
+  build-release-binaries:
+    name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: upload-release-documents
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        goos: [darwin, freebsd, linux, netbsd, openbsd, windows]
+        goarch: [amd64, arm64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build and Upload Binary
+        uses: wangyoucao577/go-release-action@v1
+        env:
+          CGO_ENABLED: 0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          project_path: ./cmd/routeros-extract
+          binary_name: routeros-extract
+          ldflags: -s -w -X main.version=${{ github.event.release.tag_name }}
+          build_flags: -trimpath
+          overwrite: true
+          sha256sum: true
+          md5sum: false
+          asset_name: routeros-extract-${{ matrix.goos }}-${{ matrix.goarch }}
+          compress_assets: false

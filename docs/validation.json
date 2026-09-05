@@ -1,0 +1,421 @@
+{
+  "validation_date": "2026-09-04",
+  "inputs": 17,
+  "npk_extractions": 99,
+  "result": "passed",
+  "results": [
+    {
+      "input": "all_packages-arm-7.24.2.zip",
+      "input_sha256": "9ce7f1a2b04affee19215be2ac64d855a6d33d09b01f5ed2d3cff07c826f4a33",
+      "status": 0,
+      "seconds": 14.68,
+      "verification": {
+        "verified": true,
+        "artifacts": 1913,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 18
+      }
+    },
+    {
+      "input": "all_packages-arm64-7.24.2.zip",
+      "input_sha256": "4afdd6d6a3a6102553672157594f7d9020fdbc3a273ec5cf7f7c1c87cf4a006c",
+      "status": 0,
+      "seconds": 19.31,
+      "verification": {
+        "verified": true,
+        "artifacts": 2336,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 18
+      }
+    },
+    {
+      "input": "all_packages-mipsbe-7.24.2.zip",
+      "input_sha256": "1bce20b159881548eafa52477fb2b556878f045e4510178524838a194f9364bb",
+      "status": 0,
+      "seconds": 1.69,
+      "verification": {
+        "verified": true,
+        "artifacts": 665,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 9
+      }
+    },
+    {
+      "input": "all_packages-mmips-7.24.2.zip",
+      "input_sha256": "e4baf2dcd6e65cd5a6f141fe324ee352bdc04b543ecfdf5494081bafcdc5675b",
+      "status": 0,
+      "seconds": 2.43,
+      "verification": {
+        "verified": true,
+        "artifacts": 821,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 10
+      }
+    },
+    {
+      "input": "all_packages-ppc-7.24.2.zip",
+      "input_sha256": "d74fa15abbc401782667bc8e2790c4e49dca37d94f08776a6104b269669bcba1",
+      "status": 0,
+      "seconds": 2.2,
+      "verification": {
+        "verified": true,
+        "artifacts": 781,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 9
+      }
+    },
+    {
+      "input": "all_packages-smips-7.24.2.zip",
+      "input_sha256": "7662c1fabc7c1e58b1547d8c65a70f323a37b290ad32ca7a6ec5e594873aa20a",
+      "status": 0,
+      "seconds": 0.55,
+      "verification": {
+        "verified": true,
+        "artifacts": 243,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 3
+      }
+    },
+    {
+      "input": "all_packages-tile-7.24.2.zip",
+      "input_sha256": "c8afccb05ae7505fcf23282b0641c49901cb1222b9d5f48f2b3017ed35766e6e",
+      "status": 0,
+      "seconds": 4.02,
+      "verification": {
+        "verified": true,
+        "artifacts": 1030,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 11
+      }
+    },
+    {
+      "input": "all_packages-x86-7.24.2.zip",
+      "input_sha256": "26dbe3f32b9f9f4a669c53a5a0d35d0d663862d6959c8d20c66e00bea442a449",
+      "status": 0,
+      "seconds": 7.08,
+      "verification": {
+        "verified": true,
+        "artifacts": 1516,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false,
+        "packages": 12
+      }
+    },
+    {
+      "input": "routeros-7.24.1-arm64.npk",
+      "input_sha256": "d363f53c67b5185c4e01c5924c31f7f1e09f41f80b20e7550c7d7378d06eef1d",
+      "status": 0,
+      "seconds": 11.57,
+      "verification": {
+        "verified": true,
+        "artifacts": 1491,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 13,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 284,
+        "elf_counts": {
+          "32-bit ARM executable": 101,
+          "32-bit ARM shared_object": 18,
+          "64-bit AArch64 executable": 2,
+          "64-bit AArch64 relocatable": 284
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-arm.npk",
+      "input_sha256": "880be4e776ba8b1d406bcf77dc6738189623e1b5dd6ef3e4fb915ecf60e9636e",
+      "status": 0,
+      "seconds": 11.46,
+      "verification": {
+        "verified": true,
+        "artifacts": 1518,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 9,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 304,
+        "elf_counts": {
+          "32-bit ARM executable": 101,
+          "32-bit ARM relocatable": 304,
+          "32-bit ARM shared_object": 18
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-arm64.npk",
+      "input_sha256": "ea79bd20b0d909e286abf3329f0249ef85c2aa28bfdfc96f2a3012958de395a8",
+      "status": 0,
+      "seconds": 11.01,
+      "verification": {
+        "verified": true,
+        "artifacts": 1491,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 13,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 284,
+        "elf_counts": {
+          "32-bit ARM executable": 101,
+          "32-bit ARM shared_object": 18,
+          "64-bit AArch64 executable": 2,
+          "64-bit AArch64 relocatable": 284
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-mipsbe.npk",
+      "input_sha256": "31d8c44fc5cb8e0df548c3bc96d908e73d4e70bdabd7287b75750c832885d823",
+      "status": 0,
+      "seconds": 7.9,
+      "verification": {
+        "verified": true,
+        "artifacts": 1463,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 15,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 275,
+        "elf_counts": {
+          "32-bit MIPS executable": 102,
+          "32-bit MIPS relocatable": 275,
+          "32-bit MIPS shared_object": 18
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-mmips.npk",
+      "input_sha256": "ba5acc9e644e20080af74a44f327780b5a43e53c6f9b5ae348defdeec1d39f17",
+      "status": 0,
+      "seconds": 7.47,
+      "verification": {
+        "verified": true,
+        "artifacts": 1367,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 1,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 254,
+        "elf_counts": {
+          "32-bit MIPS executable": 98,
+          "32-bit MIPS relocatable": 254,
+          "32-bit MIPS shared_object": 18
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-ppc.npk",
+      "input_sha256": "9428a24386317a64dac32526b55bc2e5bea39f1970c5ff1beb39757025c2fb9c",
+      "status": 0,
+      "seconds": 21.04,
+      "verification": {
+        "verified": true,
+        "artifacts": 4081,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 4,
+        "kernel_streams": 8,
+        "routerboot_images": 7,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 912,
+        "elf_counts": {
+          "32-bit PowerPC executable": 99,
+          "32-bit PowerPC relocatable": 912,
+          "32-bit PowerPC shared_object": 18
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-smips.npk",
+      "input_sha256": "bb040235b78693c9eebde9d0ad74a7e343f07ac79b63744aaf341511beba86bf",
+      "status": 0,
+      "seconds": 5.18,
+      "verification": {
+        "verified": true,
+        "artifacts": 999,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 2,
+        "routerboot_images": 1,
+        "webfig_decoded_files": 6,
+        "kernel_modules": 181,
+        "elf_counts": {
+          "32-bit MIPS executable": 83,
+          "32-bit MIPS relocatable": 181,
+          "32-bit MIPS shared_object": 18
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2-tile.npk",
+      "input_sha256": "40c79d5635f9005d9c0a6c0295ac2c93dcd1c6e1781ff4abb0d8177eb790333e",
+      "status": 0,
+      "seconds": 7.3,
+      "verification": {
+        "verified": true,
+        "artifacts": 1318,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 2,
+        "kernel_streams": 2,
+        "routerboot_images": 1,
+        "webfig_decoded_files": 8,
+        "kernel_modules": 240,
+        "elf_counts": {
+          "32-bit TILE-Gx executable": 101,
+          "32-bit TILE-Gx shared_object": 18,
+          "64-bit TILE-Gx relocatable": 240
+        },
+        "notes": []
+      }
+    },
+    {
+      "input": "routeros-7.24.2.npk",
+      "input_sha256": "26f0331e2c4aa60e019135bd09ab7da83922b3bf44261af82377a6b58b3b7911",
+      "status": 0,
+      "seconds": 9.04,
+      "verification": {
+        "verified": true,
+        "artifacts": 1607,
+        "section_roundtrip_verified": true,
+        "source_verified": true,
+        "signature_verified": false
+      },
+      "summary": {
+        "kernels": 1,
+        "kernel_streams": 1,
+        "routerboot_images": 0,
+        "webfig_decoded_files": 9,
+        "kernel_modules": 298,
+        "elf_counts": {
+          "32-bit x86 executable": 107,
+          "32-bit x86 shared_object": 18,
+          "64-bit x86-64 relocatable": 298
+        },
+        "notes": []
+      }
+    }
+  ],
+  "arm64_comparison": {
+    "before": "routeros-7.24.1-arm64",
+    "after": "routeros-7.24.2-arm64",
+    "comparison": "SHA256 of file bytes, symlink targets, node types, and original modes; ignores mtime and host path aliases",
+    "rootfs": {
+      "added": 14,
+      "content_changed": 55,
+      "removed": 14,
+      "symlink_changed": 1,
+      "unchanged": 749
+    },
+    "rootfs_regular_files": {
+      "added": 14,
+      "content_changed": 55,
+      "removed": 14,
+      "unchanged": 497
+    },
+    "file_container": {
+      "content_changed": 1,
+      "unchanged": 3
+    },
+    "routerboot_matched_by_family": {
+      "content_changed": 13
+    }
+  },
+  "tool_version": "dev",
+  "go_version": "go1.27.1",
+  "runtime_host": "darwin/arm64",
+  "core_npk_inputs": 9,
+  "addon_npk_inputs": 90,
+  "zip_inputs": 8,
+  "checks": [
+    "NPK SHA256 and section reconstruction",
+    "all generated artifact hashes and symlink targets",
+    "ZIP source SHA256 and contained NPK reconstruction",
+    "ARM64 7.24.1 versus 7.24.2 package comparison",
+    "all three modules: Go 1.25.13 unit tests",
+    "all three modules: Go 1.27.1 unit tests with race detector and go vet",
+    "all three modules: govulncheck reported no known vulnerabilities",
+    "workflow validation with actionlint",
+    "source scan with Gitleaks: no leaks found",
+    "12 CGO-disabled release builds; native version/help/embedded-license checks"
+  ],
+  "host_builds": [
+    "darwin/amd64",
+    "darwin/arm64",
+    "freebsd/amd64",
+    "freebsd/arm64",
+    "linux/amd64",
+    "linux/arm64",
+    "netbsd/amd64",
+    "netbsd/arm64",
+    "openbsd/amd64",
+    "openbsd/arm64",
+    "windows/amd64",
+    "windows/arm64"
+  ],
+  "prior_reference_validation": {
+    "date": "2026-09-04",
+    "inputs": [
+      "routeros-7.24.1-arm64.npk",
+      "routeros-7.24.2-arm64.npk"
+    ],
+    "result": "Python-reference manifest and derived payload parity passed in an earlier validation; not repeated in this readiness replay"
+  }
+}

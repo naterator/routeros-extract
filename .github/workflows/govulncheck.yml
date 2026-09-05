@@ -1,0 +1,29 @@
+name: Vulnerability Check
+
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  govulncheck:
+    name: govulncheck (${{ matrix.module }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [., third_party/xz, third_party/squashfs]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache-dependency-path: |
+            go.sum
+            third_party/squashfs/go.sum
+      - name: Check for Vulnerabilities
+        uses: imjasonh/govulncheck-action@v0.1
+        with:
+          working-directory: ${{ matrix.module }}
