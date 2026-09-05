@@ -9,26 +9,28 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	routerosextract "github.com/naterator/routeros-extract"
 	"github.com/naterator/routeros-extract/internal/extract"
+	"github.com/naterator/routeros-extract/internal/license"
 	"github.com/naterator/routeros-extract/internal/update"
 	"github.com/spf13/cobra"
 )
 
 func New(version string) *cobra.Command {
 	opt := extract.Options{}
-	r := &cobra.Command{Use: "routeros-extract", Short: "Extract and inspect RouterOS packages, kernels, and RouterBOOT firmware", Version: version, SilenceErrors: true, SilenceUsage: true}
-	r.Long = "Extract RouterOS NPKs and nested firmware using native Go.\nKeeps original sections, Linux metadata, portable browse copies, and SHA256 manifests.\nNo extracted code is executed. MikroTik signatures are retained but not authenticated."
+	r := &cobra.Command{Use: "routeros-extract", Short: "Inspect and extract RouterOS packages.", Version: version, SilenceErrors: true, SilenceUsage: true}
 	r.AddCommand(&cobra.Command{
-		Use: "license", Short: "Print the license and third-party notices", Args: cobra.NoArgs,
+		Use: "license", Short: "Show licenses and notices", GroupID: "utility", Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			_, err := fmt.Fprint(cmd.OutOrStdout(), routerosextract.License)
+			_, err := fmt.Fprint(cmd.OutOrStdout(), license.Text)
 			return err
 		},
 	})
-	r.PersistentFlags().Int64Var(&opt.MaxBytes, "max-bytes", extract.DefaultMaxBytes, "maximum bytes per input, file container, filesystem, or recursive kernel scan")
-	r.PersistentFlags().BoolVar(&opt.NoSymlinks, "no-symlinks", runtime.GOOS == "windows", "retain link metadata without creating host symlinks")
+	r.PersistentFlags().Int64Var(&opt.MaxBytes, "max-bytes", extract.DefaultMaxBytes, "Input/payload byte limit")
+	r.PersistentFlags().BoolVar(&opt.NoSymlinks, "no-symlinks", runtime.GOOS == "windows", "Keep symlinks as metadata")
 	r.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
+		if err := cmd.ValidateRequiredFlags(); err != nil {
+			return showHelpOnError(cmd, err)
+		}
 		if opt.MaxBytes < 1 || opt.MaxBytes > 4<<30 {
 			return fmt.Errorf("--max-bytes must be between 1 and 4294967296")
 		}
@@ -40,7 +42,7 @@ func New(version string) *cobra.Command {
 		return e.Encode(v)
 	}
 	var inspectJSON bool
-	inspect := &cobra.Command{Use: "inspect NPK [NPK...]", Short: "Read package metadata and list sections without extracting", Args: cobra.MinimumNArgs(1), RunE: func(c *cobra.Command, args []string) error {
+	inspect := &cobra.Command{Use: "inspect NPK [NPK...]", Short: "Show package metadata and sections", Args: cobra.MinimumNArgs(1), RunE: func(c *cobra.Command, args []string) error {
 		all := []extract.Metadata{}
 		for _, src := range args {
 			b, e := extract.ReadInput(src, opt)
@@ -75,9 +77,9 @@ func New(version string) *cobra.Command {
 		}
 		return w.Flush()
 	}}
-	inspect.Flags().BoolVar(&inspectJSON, "json", false, "print machine-readable metadata")
+	inspect.Flags().BoolVar(&inspectJSON, "json", false, "Print JSON")
 	var out string
-	ex := &cobra.Command{Use: "extract INPUT [INPUT...]", Short: "Fully extract NPK packages or all_packages ZIP archives", Args: cobra.MinimumNArgs(1), Example: "  routeros-extract extract routeros-7.24.2-arm64.npk all_packages-arm64-7.24.2.zip -o extracted", RunE: func(c *cobra.Command, args []string) error {
+	ex := &cobra.Command{Use: "extract INPUT [INPUT...]", Short: "Extract NPK packages or ZIP collections", Args: cobra.MinimumNArgs(1), Example: "  routeros-extract extract package.npk -o extracted\n  routeros-extract extract all_packages.zip -o extracted", RunE: func(c *cobra.Command, args []string) error {
 		for _, src := range args {
 			stem := strings.TrimSuffix(filepath.Base(src), filepath.Ext(src))
 			dest := filepath.Join(out, stem)
@@ -98,25 +100,25 @@ func New(version string) *cobra.Command {
 		}
 		return nil
 	}}
-	ex.Flags().StringVarP(&out, "out", "o", "extracted", "parent directory for one new folder per NPK")
-	ex.Flags().BoolVar(&opt.SectionsOnly, "sections-only", false, "save raw sections and metadata only")
-	ex.Flags().BoolVar(&opt.NoDerived, "no-derived", false, "extract package files and filesystems without nested analysis")
+	ex.Flags().StringVarP(&out, "out", "o", "extracted", "Output parent directory")
+	ex.Flags().BoolVar(&opt.SectionsOnly, "sections-only", false, "Save raw sections only")
+	ex.Flags().BoolVar(&opt.NoDerived, "no-derived", false, "Skip nested payload analysis")
 	var kernelOut, fwOut, squashOut string
-	kernel := &cobra.Command{Use: "kernel IMAGE", Short: "Extract XZ/gzip streams and initramfs from a boot image", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
+	kernel := &cobra.Command{Use: "kernel IMAGE", Short: "Extract kernel streams and initramfs", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		v, e := extract.Kernel(a[0], kernelOut, opt)
 		if e != nil {
 			return e
 		}
 		return jsonOut(c, v)
 	}}
-	firmware := &cobra.Command{Use: "firmware FWF", Short: "Extract modern or legacy RouterBOOT firmware", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
+	firmware := &cobra.Command{Use: "firmware FWF", Short: "Extract RouterBOOT firmware", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		v, e := extract.Firmware(a[0], fwOut, opt)
 		if e != nil {
 			return e
 		}
 		return jsonOut(c, v)
 	}}
-	squash := &cobra.Command{Use: "squashfs IMAGE", Short: "Export a SquashFS filesystem, archive, and manifests", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
+	squash := &cobra.Command{Use: "squashfs IMAGE", Short: "Extract a SquashFS filesystem", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		if e := extract.SquashFS(a[0], squashOut, opt); e != nil {
 			return e
 		}
@@ -127,10 +129,10 @@ func New(version string) *cobra.Command {
 		c *cobra.Command
 		p *string
 	}{{kernel, &kernelOut}, {firmware, &fwOut}, {squash, &squashOut}} {
-		v.c.Flags().StringVarP(v.p, "out", "o", "", "new destination directory")
+		v.c.Flags().StringVarP(v.p, "out", "o", "", "New output directory (required)")
 		_ = v.c.MarkFlagRequired("out")
 	}
-	analyze := &cobra.Command{Use: "analyze DIRECTORY [DIRECTORY...]", Short: "Add derived payloads and inventories to existing extractions", Args: cobra.MinimumNArgs(1), RunE: func(c *cobra.Command, a []string) error {
+	analyze := &cobra.Command{Use: "analyze DIRECTORY [DIRECTORY...]", Short: "Analyze extracted files", Args: cobra.MinimumNArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		for _, dir := range a {
 			v, e := extract.Analyze(dir, opt)
 			if e != nil {
@@ -143,25 +145,31 @@ func New(version string) *cobra.Command {
 		return nil
 	}}
 	var compareOut string
-	compare := &cobra.Command{Use: "compare BEFORE AFTER", Short: "Compare extracted packages by bytes and original metadata", Args: cobra.ExactArgs(2), RunE: func(c *cobra.Command, a []string) error {
+	compare := &cobra.Command{Use: "compare BEFORE AFTER", Short: "Compare extracted packages", Args: cobra.ExactArgs(2), RunE: func(c *cobra.Command, a []string) error {
 		v, e := extract.Compare(a[0], a[1], compareOut)
 		if e != nil {
 			return e
 		}
 		return jsonOut(c, v)
 	}}
-	compare.Flags().StringVarP(&compareOut, "out", "o", "", "new directory for JSON, CSV, and Markdown reports")
+	compare.Flags().StringVarP(&compareOut, "out", "o", "", "New report directory (required)")
 	_ = compare.MarkFlagRequired("out")
 	var source string
-	verify := &cobra.Command{Use: "verify DIRECTORY", Short: "Verify output hashes, links, and NPK section reconstruction", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
+	verify := &cobra.Command{Use: "verify DIRECTORY", Short: "Verify an extraction", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		v, e := extract.Verify(a[0], source)
 		if e != nil {
 			return e
 		}
 		return jsonOut(c, v)
 	}}
-	verify.Flags().StringVar(&source, "source", "", "also compare against this original NPK or ZIP")
-	r.AddCommand(inspect, ex, kernel, firmware, squash, analyze, compare, verify)
-	r.AddCommand(newUpdateCommand(version, update.Run))
+	verify.Flags().StringVar(&source, "source", "", "Check the original NPK or ZIP")
+	for _, command := range []*cobra.Command{inspect, ex, kernel, firmware, squash, analyze, compare, verify} {
+		command.GroupID = "routeros"
+		r.AddCommand(command)
+	}
+	updater := newUpdateCommand(version, update.Run)
+	updater.GroupID = "utility"
+	r.AddCommand(updater)
+	configureHelp(r)
 	return r
 }

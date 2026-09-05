@@ -15,8 +15,8 @@ func newUpdateCommand(version string, run updateRunner) *cobra.Command {
 	var checkOnly bool
 	cmd := &cobra.Command{
 		Use:   "update",
-		Short: "Check GitHub and install a newer release",
-		Long:  "Download the latest stable release for this executable's platform, verify its SHA-256 checksum, and replace the current executable.",
+		Short: "Install the latest stable release",
+		Long:  "Check GitHub for a newer release and update this binary.\nVerify its SHA-256 checksum before installing.",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Fprintln(cmd.ErrOrStderr(), "Checking GitHub for a newer release...")
@@ -38,6 +38,6 @@ func newUpdateCommand(version string, run updateRunner) *cobra.Command {
 			return nil
 		},
 	}
-	cmd.Flags().BoolVar(&checkOnly, "check", false, "check for a newer release without changing the executable")
+	cmd.Flags().BoolVar(&checkOnly, "check", false, "Check without installing")
 	return cmd
 }

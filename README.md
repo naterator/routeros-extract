@@ -210,8 +210,11 @@ small synthetic fixtures and requires no RouterOS downloads or external tools.
 The project's original code is licensed under [BSD-3-Clause](LICENSE).
 Bundled and linked components retain their MIT, BSD, 0BSD, or Apache-2.0
 licenses. All license texts, attribution, and third-party notices are
-consolidated in [LICENSE](LICENSE), which is also embedded in every binary.
+consolidated in [LICENSE](LICENSE), which is also included in every binary.
 Include that file when redistributing source or binaries.
+
+After editing `LICENSE`, run `go generate ./internal/license` to refresh
+the copy compiled into the CLI.
 
 The license covers the tool's code, not RouterOS firmware or extracted
 payloads. The NRV2B and LZO implementations use permissively licensed

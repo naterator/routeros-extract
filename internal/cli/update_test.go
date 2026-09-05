@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	routerosextract "github.com/naterator/routeros-extract"
+	"github.com/naterator/routeros-extract/internal/license"
 	"github.com/naterator/routeros-extract/internal/update"
 )
 
@@ -70,7 +70,7 @@ func TestLicenseCommandIncludesCompleteLicense(t *testing.T) {
 	if err := cmd.Execute(); err != nil {
 		t.Fatal(err)
 	}
-	if out.String() != routerosextract.License || !strings.Contains(out.String(), "Nate Schmoll") || !strings.Contains(out.String(), "THIRD-PARTY SOFTWARE") {
+	if out.String() != license.Text || !strings.Contains(out.String(), "Nate Schmoll") || !strings.Contains(out.String(), "THIRD-PARTY SOFTWARE") {
 		t.Fatal("license command did not print all embedded license text")
 	}
 }
