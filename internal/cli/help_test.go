@@ -75,7 +75,7 @@ func TestRootHelpGroupsAndDefaults(t *testing.T) {
 		heading  string
 		commands []string
 	}{
-		{"RouterOS commands:", []string{"analyze", "compare", "extract", "firmware", "inspect", "kernel", "squashfs", "verify"}},
+		{"RouterOS commands:", []string{"analyze", "compare", "console", "extract", "firmware", "inspect", "kernel", "squashfs", "verify"}},
 		{"Utility commands:", []string{"completion", "help", "license", "update"}},
 	} {
 		_, section, ok := strings.Cut(out.String(), group.heading+"\n")
@@ -128,12 +128,15 @@ func TestCompletionStillWritesScripts(t *testing.T) {
 
 func TestIncompleteCommandsShowHelp(t *testing.T) {
 	var cases [][]string
-	for _, name := range []string{"analyze", "compare", "extract", "firmware", "inspect", "kernel", "squashfs", "verify"} {
+	for _, name := range []string{"analyze", "compare", "console", "extract", "firmware", "inspect", "kernel", "squashfs", "verify"} {
 		cases = append(cases, []string{name})
 	}
 	cases = append(cases,
 		[]string{"compare", "before"},
 		[]string{"compare", "before", "after"},
+		[]string{"console", "1073741824.mem"},
+		[]string{"console", "1073741824.mem", "--out", "new-output"},
+		[]string{"console", "1073741824.mem", "--parser", "parser"},
 		[]string{"firmware", "image.fwf"},
 		[]string{"kernel", "image.bin"},
 		[]string{"squashfs", "image.squashfs"},

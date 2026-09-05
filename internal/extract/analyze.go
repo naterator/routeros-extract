@@ -10,6 +10,8 @@ import (
 	"io"
 	"path"
 	"strings"
+
+	"github.com/naterator/routeros-extract/internal/console"
 )
 
 type ELFInfo struct {
@@ -34,6 +36,8 @@ type Analysis struct {
 	RouterBOOTImages   int            `json:"routerboot_images"`
 	WebfigDecodedFiles int            `json:"webfig_decoded_files"`
 	KernelModules      int            `json:"kernel_modules"`
+	ConsoleFiles       int            `json:"console_files"`
+	ConsoleNodes       int            `json:"console_nodes"`
 	ELFCounts          map[string]int `json:"elf_counts"`
 	Notes              []string       `json:"notes"`
 }
@@ -105,6 +109,8 @@ func analyze(d *disk, m Metadata, opt Options) (Analysis, error) {
 	web := []WebInfo{}
 	elves := []ELFInfo{}
 	modules := []ModuleInfo{}
+	consoleImages := []consoleFile{}
+	consoleParsers := map[string]consoleParser{}
 	for _, s := range m.Sections {
 		if s.ExtractedTo == "" {
 			continue
@@ -134,6 +140,13 @@ func analyze(d *disk, m Metadata, opt Options) (Analysis, error) {
 			}
 			if digest(b) != item.SHA256 {
 				return summary, fmt.Errorf("manifest hash mismatch before analysis: %s", source)
+			}
+			if item.Path == "nova/bin/parser" {
+				p, err := console.NewParser(b)
+				consoleParsers[s.ExtractedTo] = consoleParser{p, err}
+			}
+			if base, ok := isConsoleImage(item.Path); ok {
+				consoleImages = append(consoleImages, consoleFile{source: source, section: s.ExtractedTo, sha256: item.SHA256, base: base})
 			}
 			if s.Type == 4 && (strings.HasPrefix(item.Path, "boot/kernel") || strings.HasPrefix(item.Path, "boot/initrd") || strings.HasPrefix(path.Base(item.Path), "vmlinuz") || strings.HasSuffix(strings.ToLower(item.Path), ".efi")) {
 				summary.Kernels++
@@ -247,6 +260,9 @@ func analyze(d *disk, m Metadata, opt Options) (Analysis, error) {
 		}
 	}
 	summary.RouterBOOTImages = len(boots)
+	if err := analyzeConsole(d, consoleImages, consoleParsers, opt, &summary); err != nil {
+		return summary, err
+	}
 	summary.WebfigDecodedFiles = len(web)
 	summary.KernelModules = len(modules)
 	if summary.Kernels == 0 {

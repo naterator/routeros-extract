@@ -6,6 +6,10 @@ valid. Recognition and decoding are deliberately separate: a valid package
 does not become unusable merely because a vendor adds a section or a new
 payload encoding.
 
+The console command-definition images under `nova/lib/console/*.mem` have
+their own [format and decoder documentation](CONSOLE-MEM.md), including the
+fixed-address object layout and the currently supported parser builds.
+
 ## NPK framing
 
 An NPK begins with:

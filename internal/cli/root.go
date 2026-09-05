@@ -118,6 +118,22 @@ func New(version string) *cobra.Command {
 		}
 		return jsonOut(c, v)
 	}}
+	var consoleParser, consoleOut string
+	console := &cobra.Command{Use: "console INPUT [INPUT...]", Short: "Decode console .mem definitions", Args: cobra.MinimumNArgs(1),
+		Long:    "Decode console .mem files or search an extracted rootfs.\nRequires its matching nova/bin/parser executable.\nSupported profiles: 7.24.1-arm64 and 7.24.2-arm64.",
+		Example: "  routeros-extract console rootfs --parser rootfs/nova/bin/parser \\\n    -o console-output",
+		RunE: func(c *cobra.Command, args []string) error {
+			v, err := extract.Console(args, consoleParser, consoleOut, opt)
+			if err != nil {
+				return err
+			}
+			return jsonOut(c, v)
+		},
+	}
+	console.Flags().StringVar(&consoleParser, "parser", "", "Matching parser executable (required)")
+	console.Flags().StringVarP(&consoleOut, "out", "o", "", "New output directory (required)")
+	_ = console.MarkFlagRequired("parser")
+	_ = console.MarkFlagRequired("out")
 	squash := &cobra.Command{Use: "squashfs IMAGE", Short: "Extract a SquashFS filesystem", Args: cobra.ExactArgs(1), RunE: func(c *cobra.Command, a []string) error {
 		if e := extract.SquashFS(a[0], squashOut, opt); e != nil {
 			return e
@@ -163,7 +179,7 @@ func New(version string) *cobra.Command {
 		return jsonOut(c, v)
 	}}
 	verify.Flags().StringVar(&source, "source", "", "Check the original NPK or ZIP")
-	for _, command := range []*cobra.Command{inspect, ex, kernel, firmware, squash, analyze, compare, verify} {
+	for _, command := range []*cobra.Command{inspect, ex, kernel, firmware, squash, console, analyze, compare, verify} {
 		command.GroupID = "routeros"
 		r.AddCommand(command)
 	}

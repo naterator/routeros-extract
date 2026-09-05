@@ -92,7 +92,7 @@ Run `routeros-extract --help` or a command's `--help` for all flags.
 * `extract INPUT... -o DIRECTORY` accepts NPKs and `all_packages*.zip` archives,
   creates one new directory per input, and runs
   the complete extraction: raw sections, file-container records, SquashFS,
-  kernel streams, RouterBOOT FWFs, WebFig data, ELF/module inventories,
+  kernel streams, RouterBOOT FWFs, console definitions, WebFig data, ELF/module inventories,
   manifests, and `integrity.json`.
 * `kernel IMAGE -o DIRECTORY` scans a boot object for valid XZ or gzip streams,
   recursively follows decoded ELF and CPIO payloads, and writes stream hashes,
@@ -102,6 +102,10 @@ Run `routeros-extract --help` or a command's `--help` for all flags.
   images retain their uncompressed payload and explicitly report that format.
 * `squashfs IMAGE -o DIRECTORY` exports a SquashFS image, a metadata-preserving
   `rootfs.tar.gz`, a portable browse tree, and manifests.
+* `console INPUT... --parser ELF -o DIRECTORY` decodes console `.mem` files
+  or searches an extracted rootfs. It writes command paths, parameter and
+  help records, strings, and an integrity ledger. The parser must match the
+  firmware; supported profiles are currently 7.24.1 ARM64 and 7.24.2 ARM64.
 * `analyze DIRECTORY...` adds nested payload reports to an extraction that was
   created with `--no-derived`. The `derived/` directory must not already exist.
 * `compare BEFORE AFTER -o DIRECTORY` compares original archive paths,
@@ -123,6 +127,8 @@ routeros-extract extract routeros-7.24.2-arm64.npk -o extracted
 routeros-extract extract all_packages-arm64-7.24.2.zip -o extracted
 routeros-extract verify extracted/routeros-7.24.2-arm64 \
   --source routeros-7.24.2-arm64.npk
+routeros-extract console rootfs --parser rootfs/nova/bin/parser \
+  -o console-output
 routeros-extract completion zsh > _routeros-extract
 ```
 
@@ -159,6 +165,13 @@ original path occurs with different four-byte variant tags, later records are
 stored with a deterministic `.__variant_<tag>` suffix while `archive_path` and
 `variant_tag_hex` retain the original relationship.
 
+Supported console images are also decoded automatically into
+`derived/console/` when their matching parser is present. Unsupported builds
+and add-ons without a parser keep their source images and receive a note.
+For a separate add-on, use `console --parser` with the corresponding main
+package's parser. See [the console format documentation](docs/CONSOLE-MEM.md)
+for supported builds, output files, and the recovered layout.
+
 For an `all_packages.zip`, `extract` preserves each NPK under `npk/` and
 extracts it under `packages/<package-name>/`. `zip-metadata.json` lists every
 archive member, including ignored non-NPK files. Each add-on is processed
@@ -187,7 +200,8 @@ shown as text where appropriate. They are never run. The same rule applies to
 ELF files, kernels, CPIO `init`, FWF output, and WebFig definitions.
 
 The detailed byte layout, boot-object formats, and known architecture matrix
-are in [docs/FORMAT.md](docs/FORMAT.md). The bundled XZ changes and attribution
+are in [docs/FORMAT.md](docs/FORMAT.md); console memory images are documented
+in [docs/CONSOLE-MEM.md](docs/CONSOLE-MEM.md). The bundled XZ changes and attribution
 are in [third_party/xz/LOCAL_CHANGES.md](third_party/xz/LOCAL_CHANGES.md), and
 dependency notices are in [LICENSE](LICENSE).
 
