@@ -120,7 +120,7 @@ func New(version string) *cobra.Command {
 	}}
 	var consoleParser, consoleOut string
 	console := &cobra.Command{Use: "console INPUT [INPUT...]", Short: "Decode console .mem definitions", Args: cobra.MinimumNArgs(1),
-		Long:    "Decode console .mem files or search an extracted rootfs.\nRequires its matching nova/bin/parser executable.\nSupported profiles: 7.24.1-arm64 and 7.24.2-arm64.",
+		Long:    "Decode console .mem files or search an extracted rootfs.\nRequires the matching nova/bin/parser (or older nova/bin/console).\nDetects supported layouts from the ELF and image structure.",
 		Example: "  routeros-extract console rootfs --parser rootfs/nova/bin/parser \\\n    -o console-output",
 		RunE: func(c *cobra.Command, args []string) error {
 			v, err := extract.Console(args, consoleParser, consoleOut, opt)
@@ -160,6 +160,9 @@ func New(version string) *cobra.Command {
 		}
 		return nil
 	}}
+	for _, c := range []*cobra.Command{ex, analyze} {
+		c.Flags().StringVar(&opt.ConsoleParser, "console-parser", "", "Main-package parser for add-on console images")
+	}
 	var compareOut string
 	compare := &cobra.Command{Use: "compare BEFORE AFTER", Short: "Compare extracted packages", Args: cobra.ExactArgs(2), RunE: func(c *cobra.Command, a []string) error {
 		v, e := extract.Compare(a[0], a[1], compareOut)

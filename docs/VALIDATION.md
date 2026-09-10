@@ -2,32 +2,42 @@
 
 ## Console decoder
 
-Validated on 2026-09-05 with Go 1.27.1 on macOS ARM64:
+Validated on 2026-09-09 with Go 1.27.1 on macOS ARM64:
 
-- Decoded all eight console images from each of the supplied 7.24.1 and
-  7.24.2 ARM64 packages: 30,034 and 30,035 records respectively.
-- Compared every decoded node field, menu/argument/property relationship,
-  path, help string, string candidate, and count with the Python research
-  decoder. All 60,069 records matched. Empty omitted JSON arrays were
-  normalized to empty arrays, and input-path presentation was excluded.
-- Verified standalone output ledgers for both eight-image collections.
-- Reconstructed both original NPKs from retained sections and checked their
-  complete SHA-256 hashes against the extraction metadata. Full extraction
-  automatically decoded all eight console modules from each package.
-  Derived console records matched standalone output, and both NPK
-  extractions passed section reconstruction, source, and artifact checks.
-- Synthetic tests cover object families, shared paths, argument/property
-  vectors, optional help fields, Latin-1 text, malformed pointers and lengths,
-  build mismatch, menu cycles, limits, filename collisions, and missing or
-  unsupported parsers. A 10-second decoder fuzz run passed.
-- All three modules passed `make test vet`. The changed packages passed
-  race tests. The CLI cross-compiled for Windows AMD64, Windows ARM64, and
-  Linux AMD64; these builds were not executed on those operating systems.
+- All 98 NPKs in the 7.24.2 main-package/add-on corpus passed full CLI
+  extraction and integrity verification. All 144 console images decoded,
+  producing 278,668 nodes across ARM, ARM64, MIPSBE, MMIPS, PPC, SMIPS,
+  TILE, and x86. Add-ons used the matching main executable through
+  `--console-parser`.
+- The supplied ARM64 and x86 installer ISOs contained 28 NPKs in total;
+  each matched an already tested package byte for byte. The install-image
+  ZIP's FAT filesystem contained another 11 matching NPKs.
+- The console-specific corpus covered 773 images from 12 releases: 701
+  decoded. The 71 images from 6.49.19 require a different virtual-method
+  layout. One 7.1.5 TILE image requires another alias recognizer. These
+  cases report errors and retain their original files during extraction.
+- All examined 7.20.x, 7.21.x, 7.22.1, 7.23.4, 7.24.1, and 7.24.2 images
+  decoded. No version-number or binary-hash allowlist is used.
+- The original eight 7.24.2 ARM64 images matched the previous decoder for
+  every pre-existing decoded field, command listing, and string row.
+  New layout metadata and property-vector offsets were excluded from that
+  comparison, as were input-path and parser-profile presentation.
+- Synthetic fixtures cover supported CPU accessors, both byte orders,
+  relocated vtables, changed compatibility words, older header/flag layouts,
+  moved and ambiguous property vectors, aliases, and malformed ELF metadata.
+  Integration tests exercise automatic and add-on analysis and output
+  verification. Firmware data is not checked into the repository.
 
-Console support is restricted to the two examined parser builds. It does
-not establish a portable ABI for other RouterOS CPU families or versions.
-See [CONSOLE-MEM.md](CONSOLE-MEM.md). Firmware samples and generated output
-remain outside the source repository.
+Input hashes, architecture coverage, counts, and explicit unsupported cases
+are recorded in [console-validation.json](console-validation.json).
+See [CONSOLE-MEM.md](CONSOLE-MEM.md) for the recovered format and limits.
+
+The earlier 2026-09-05 ARM64 validation compared 60,069 decoded records
+from 7.24.1 and 7.24.2 against the research Python decoder, including all
+node fields, graph relationships, paths, help, strings, and counts. Those
+records matched, and both complete NPK extractions passed source and
+integrity verification. That historical Python comparison has not been
+repeated for the newly added architectures and releases.
 
 ## Existing extraction corpus
 

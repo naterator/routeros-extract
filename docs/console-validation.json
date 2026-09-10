@@ -1,0 +1,2533 @@
+{
+  "schema": 1,
+  "checked_on": "2026-09-09",
+  "method": "Read console images and matching ELF executables from each NPK SquashFS. Decode every image; retain unsupported results. No firmware code executed. Package SHA256 identifies the input; image_inventory_sha256 hashes sorted relative-path SHA256 rows ending with newline.",
+  "rows": [
+    {
+      "version": "6.49.19",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "routeros-arm-6.49.19.npk",
+          "size": 12702321,
+          "sha256": "49256f300a9562d4f94b13c03e024a30c3db080bef370da6bbd8f555626a5ced",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-arm-6.49.19/section-13/nova/bin/console",
+          "sha256": "b8ec4029fadeed5cf4898a407acfbd0326747b9092160b42fb8324360ba025f6"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "7f5e31371caf42014d75adeafcdb7b11c67516efcbaa00ae6747c05010e4e594"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "routeros-arm64-6.49.19.npk",
+          "size": 12329603,
+          "sha256": "8ba9ce0136b9d47215c7924c8b0eba531442f8058bf52157ebc1374214824666",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-arm64-6.49.19/section-13/nova/bin/console",
+          "sha256": "b8ec4029fadeed5cf4898a407acfbd0326747b9092160b42fb8324360ba025f6"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-arm64-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "486ed57b93f00995b66941597625c4dce38c314e2fe96ed127f15b763e418f27"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "mipsbe",
+      "inputs": [
+        {
+          "file": "routeros-mipsbe-6.49.19.npk",
+          "size": 12395478,
+          "sha256": "d5f89a4700696785feb41b1a9b810796e4def1172f80a07e59bac11208491d53",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/nova/bin/console",
+          "sha256": "d469a0ad5af9583e79ec3de262ec132e08de3f60f4eceeac5c1db17655a5e08b"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mipsbe-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "543be19f73f08334870b7f6cc9e71ab2871982a88dfa4496613c46d5bbafc703"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "mmips",
+      "inputs": [
+        {
+          "file": "routeros-mmips-6.49.19.npk",
+          "size": 10580092,
+          "sha256": "8af552890c5a704bd25c57434227a66321f2ff7e0a49b3d59554764be29432f5",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-mmips-6.49.19/section-13/nova/bin/console",
+          "sha256": "78acd6f18458ff0a32dab95dafe194d6d45cfa21b8d7fa4a7def895529882438"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-mmips-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "aa8fb0281240e0db5c67bac8a2b71b9a395e992dcc593d72022fed13fb575419"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "smips",
+      "inputs": [
+        {
+          "file": "routeros-smips-6.49.19.npk",
+          "size": 7549919,
+          "sha256": "0c77d9d923fd7796fb72aab2b12631a0b90b39f25976828c6f1abc5c267a1e9e",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-smips-6.49.19/section-13/nova/bin/console",
+          "sha256": "d469a0ad5af9583e79ec3de262ec132e08de3f60f4eceeac5c1db17655a5e08b"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-smips-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "fdbe711ea5d59f4200801d6bc522a4e2a81177a3f49acfb321dec0d916bbb08f"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "tile",
+      "inputs": [
+        {
+          "file": "routeros-tile-6.49.19.npk",
+          "size": 17593772,
+          "sha256": "0bca74f54cd90b8124bdd8a6773db0457cda9625938722dc78b3cd8f0a8799f1",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-tile-6.49.19/section-13/nova/bin/console",
+          "sha256": "040bcba418f68b1c6ac478f26e6683ba55c79ed6ea4b2dffb4ada54c149446bd"
+        }
+      ],
+      "images": 10,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-tile-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "e1edfe293a1a6bda2906095b63381c209e8672f35ffe544d5bd40410eb906255"
+    },
+    {
+      "version": "6.49.19",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "routeros-x86-6.49.19.npk",
+          "size": 21000337,
+          "sha256": "ebf02bfdde3a10e660a1a491103acce41e83a094e64377b6c6bca22d111e0c1c",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-x86-6.49.19/section-13/nova/bin/console",
+          "sha256": "4e5656b9ddd9f23bca2848ac7933931c24df7598fc272bb96c1a34e0c348f13f"
+        }
+      ],
+      "images": 11,
+      "decoded": 0,
+      "node_counts": {},
+      "layouts": [],
+      "header_sizes": [],
+      "unsupported": [
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/advanced-tools/nova/lib/console/1166016512.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/dhcp/nova/lib/console/1128267776.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/hotspot/nova/lib/console/1132462080.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/ipv6/nova/lib/console/1212153856.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/mpls/nova/lib/console/1224736768.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/ppp/nova/lib/console/1090519040.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/routing/nova/lib/console/1140850688.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/security/nova/lib/console/1077936128.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/ups/nova/lib/console/1174405120.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/bndl/wireless/nova/lib/console/1107296256.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        },
+        {
+          "file": "routeros-x86-6.49.19/section-13/nova/lib/console/1073741824.mem",
+          "reason": "unsupported console parser ABI: unrecognized root menu accessors"
+        }
+      ],
+      "image_inventory_sha256": "26e2e4dad36bd0da700132e76dc563708b02d20021053cae5ac33046def625b3"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-arm.npk",
+          "size": 12970207,
+          "sha256": "6c20eb7376e739a61c01f1aaad3a4dee0a2edc96401a1429bfed4a7262efca7b",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-arm/section-8/nova/bin/console",
+          "sha256": "33e04687b704070b55297e5397c227c6379be85415f7fb2fab3f46ef1610dcc2"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 4195,
+        "menu": 510,
+        "parameter": 19782
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "9ff2d61e91238c8ea8772575f176126af8cf1ffe5778dc2c0a06153bccf2e96b"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-arm64.npk",
+          "size": 13173306,
+          "sha256": "7186ee2617d7a85801c7230d92beb42b0d639f1eb347a77678f2698664fe4fbf",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-arm64/section-8/nova/bin/console",
+          "sha256": "1b2368b3d37e96b7d634dfdc641342b8ea0a24904fbc3884dfcd47c4dd34b5ec"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 4195,
+        "menu": 510,
+        "parameter": 19782
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "767ac57982ad4371a9851f87278956434c88b72614a479d02fd911e11dc56bc4"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "mipsbe",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-mipsbe.npk",
+          "size": 11869288,
+          "sha256": "50948bb91f7b645288597335ec63082d0d1924dd2dcad06ffcf1400da3cc45a3",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-mipsbe/section-8/nova/bin/console",
+          "sha256": "3216e8d137b53d88e59848365205240f0f5abcf08fd608dd16489caccb28167d"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 4194,
+        "menu": 510,
+        "parameter": 19781
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "0e52fe0d7d3dd51892e01b91ee44cc277217dcc85bd5d6afa48d6f5805727544"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "mmips",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-mmips.npk",
+          "size": 11124165,
+          "sha256": "8f26f3d6252ac37ad26c5ae33408b9cb7e8ae1a7660516c31a930aa99cd4b221",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-mmips/section-8/nova/bin/console",
+          "sha256": "bba740efcb7aef08819f6a85533f36ca029e551f3463d0ce21bff2d3c07497c1"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 4186,
+        "menu": 509,
+        "parameter": 19766
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "69f933e1c6f9a7cafb4815e2a185db43540bd2e6ccd9df19fb4211d74c9fcb6e"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "ppc",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-ppc.npk",
+          "size": 21360859,
+          "sha256": "af861503c818f7e0fe1fba1b8e3d23e68eb2512353174ec3bca22ece84c533c8",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-ppc/section-8/nova/bin/console",
+          "sha256": "a15c813c654b0585fa51e390e2daf7a537c5c409633d54272625ae2866551447"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 4169,
+        "menu": 506,
+        "parameter": 19720
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "e2d1c2b1460acec0ac275141bfa59f6906151aa57526aa4b286b32bf11dba9c4"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "smips",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-smips.npk",
+          "size": 7674974,
+          "sha256": "81e362b75fea369a3569f63a599ad8e61c54b5e835ce79a052b120c30e2dc213",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-smips/section-8/nova/bin/console",
+          "sha256": "3216e8d137b53d88e59848365205240f0f5abcf08fd608dd16489caccb28167d"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "alias": 1,
+        "command": 3186,
+        "menu": 400,
+        "parameter": 15301
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "88162337ad1590aadda79ce83c313261fde9c6979780a1a4eada0c917f1452a0"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "tile",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5-tile.npk",
+          "size": 15238227,
+          "sha256": "ea834a6617d84789c357b2d306f15c12b056c4257c4c8ed6d26a06deffb799bb",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5-tile/section-8/nova/bin/console",
+          "sha256": "57956d6c4d156fe619fd4751120a496e7096f227a0be0b2819fdd320f05df1d0"
+        }
+      ],
+      "images": 8,
+      "decoded": 7,
+      "node_counts": {
+        "command": 1208,
+        "menu": 145,
+        "parameter": 5907
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "unsupported": [
+        {
+          "file": "routeros-7.1.5-tile/section-8/nova/lib/console/1073741824.mem",
+          "reason": "node tool at 0x40017fbc (directory): unresolved console node 0x4005fa24 in vector at 0x17fcc"
+        }
+      ],
+      "image_inventory_sha256": "7829a51a8bba664d36a5ab134c7704c3b3c1a7aa22abd1ac0d0f55367a57d13e"
+    },
+    {
+      "version": "7.1.5",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "routeros-7.1.5.npk",
+          "size": 17707386,
+          "sha256": "04e023ad79a1a658d1e8b9dcb111c4e1e44efea0de0466bfdf62023f4de9d06f",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.1.5/section-8/nova/bin/console",
+          "sha256": "c22d8aa729734bec251bdd3395aff4af7dc0b3bf3e0dd36d96f165e20fb0f36b"
+        }
+      ],
+      "images": 9,
+      "decoded": 9,
+      "node_counts": {
+        "alias": 1,
+        "command": 4162,
+        "menu": 506,
+        "parameter": 19749
+      },
+      "layouts": [
+        "console32/flags-08-legacy"
+      ],
+      "header_sizes": [
+        80
+      ],
+      "image_inventory_sha256": "3d40fe8aaed291a9f6cbe9a2957b4eb8838b978913eeb7bd02020929864ae0c0"
+    },
+    {
+      "version": "7.20.1",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.20.1.zip",
+          "size": 27140848,
+          "sha256": "9c82468ace39e035c5f632d64ecbadd641bee8579d930e5bf9968e3ebeaa2dc9",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.1-arm.npk",
+          "size": 12081315,
+          "sha256": "fe7deb3616b80f801e394276970e9c71543ab582fad354f49d9498bba317a8e2",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.1-arm/section-8/nova/bin/parser",
+          "sha256": "0a4f0d65375dc903e667a86d2b4be6cb59da7432c25b724b2048526630df1890"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5663,
+        "menu": 696,
+        "parameter": 28383
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "27552f87111049695b3d2a36cfc9ac888ea2eb704068487fb488b407bc8964a3"
+    },
+    {
+      "version": "7.20.1",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.20.1.zip",
+          "size": 30593836,
+          "sha256": "845c6ca7ef263364ff2893c3dfdbe60da20d42a7ec7a135b9c2c4f1f9ff2cc24",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.1-arm64.npk",
+          "size": 13192436,
+          "sha256": "e67c8515d2b2f6c5d50c87a0eba4585e1d9b0b7c3df423909cc42e51a477cb15",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.1-arm64/section-8/nova/bin/parser",
+          "sha256": "0dfdf9085a256eb8c3539d857fa1a280247cb6d1637eb78c1befe7dc1f3d1034"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5690,
+        "menu": 699,
+        "parameter": 28693
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "5c50bb9fabde1356013ffa20418d6b73c834f11028d44e39fd2435e6182ea795"
+    },
+    {
+      "version": "7.20.2",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.20.2.zip",
+          "size": 27132656,
+          "sha256": "95023e320eb071e404f11565e2a419806d49324d2ed502840d1b469b8b52f800",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.2-arm.npk",
+          "size": 12085399,
+          "sha256": "2feaf09d02638066737c33b1140093ec4661fc4c706843e9c47df8a1d402cb1d",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.2-arm/section-8/nova/bin/parser",
+          "sha256": "10fb6b7c9e5c7999cb21b3bcc5cc5ea30ace55559ce15a4f7166dacd2ec775af"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5663,
+        "menu": 696,
+        "parameter": 28385
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "c27d84723820ba6c9ac405e313351cf2e6e4fcae7c4dabfd6e8e94463cb39218"
+    },
+    {
+      "version": "7.20.2",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.20.2.zip",
+          "size": 30585644,
+          "sha256": "3b8de33ba4fc2a61bb19004062a0794beb73067c281c187e9f0f8d61560faa98",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.2-arm64.npk",
+          "size": 13192412,
+          "sha256": "dc85355bc33a4578bf1727a494002d637bac3f4768fbefd96ec280ec26209cc7",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.2-arm64/section-8/nova/bin/parser",
+          "sha256": "46270ff6444a6515233a92b911ba579d0a95ea3857d4c1825969116a04d8bc7b"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5690,
+        "menu": 699,
+        "parameter": 28695
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "44da70294be400779a949fb7412c8694ef4602290ce5f6fb9b254597c76a088d"
+    },
+    {
+      "version": "7.20.6",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.20.6.zip",
+          "size": 27132656,
+          "sha256": "6f0ab9dad4cc7e76523bfca1ccf53623db953b247b0d3a24cb2b2d2a3ad0209a",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.6-arm.npk",
+          "size": 12105891,
+          "sha256": "16a3f5ae87df97cc8aa0fedd04f01feef72ee14ddabd67e34a5cdc1078d6aedf",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.6-arm/section-8/nova/bin/parser",
+          "sha256": "5c770fce940b365468f521499dce5b11b0647f3bc5c997b0f9fa38c50b7e7d1d"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5664,
+        "menu": 696,
+        "parameter": 28385
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "89ad8bbf0f3bb8d17a6f83f4496c28d5cf08d4afac41e72e03ec6ac73458eda7"
+    },
+    {
+      "version": "7.20.6",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.20.6.zip",
+          "size": 30589740,
+          "sha256": "aea8ff270ed389350855b522e1a2b9c110a892c7a328b929dfb5b615e11c04ee",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.20.6-arm64.npk",
+          "size": 13217044,
+          "sha256": "2d548433a0e69304bf33406f006b8b30591b579eb35da14c7ebb7b2842255e09",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.6-arm64/section-8/nova/bin/parser",
+          "sha256": "54d6c4a0a2ef66c8beee0a8816d5cf6a219b84775b05097c6fc5de8befc12347"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5691,
+        "menu": 699,
+        "parameter": 28695
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "825eb8be5693b3ba3d8f66813bb203f0ef75b7058df981843d2ea7f0aedf9811"
+    },
+    {
+      "version": "7.20.6",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "all_packages-x86-7.20.6.zip",
+          "size": 7679131,
+          "sha256": "c7cd9cd97cb1ccd112f7d1dc382d08805d813229463fd05799f76a8528a2f357",
+          "npk_packages": 11
+        },
+        {
+          "file": "routeros-7.20.6.npk",
+          "size": 20050803,
+          "sha256": "a9f9ac44ef3d79810f86845a3482939bc2c256429e6ac5b386341daef33f9cf8",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.20.6/section-8/nova/bin/parser",
+          "sha256": "6f2e76c420d739e6627728c8f2ede38e20889dc2016911979757626d1eb9b6e2"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5577,
+        "menu": 685,
+        "parameter": 28132
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        96
+      ],
+      "image_inventory_sha256": "5c1f61dccf7e6958ac5b19c8cfa2c020fb710561f1e181a72466262ac69fd69b"
+    },
+    {
+      "version": "7.21.1",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.21.1.zip",
+          "size": 27140848,
+          "sha256": "613a05307f96d76aafc51f3c93a1dcf26e6b07745a6a55cfaa6ed80b9a40a9b6",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.1-arm.npk",
+          "size": 12261439,
+          "sha256": "caf74d3613504824aba34677e7c86e07f6b37b93cdfcdbf53e0af6beb9b8ecc7",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.1-arm/section-8/nova/bin/parser",
+          "sha256": "d86b93643f9a99eb318136a0e5df11e2258556a584d807c161503aca91f965d4"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5813,
+        "menu": 701,
+        "parameter": 28959
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "5445c0e96e99de11fb3a9ff83a46c2417ea53b2e7bab3c4602e6db0749febfc9"
+    },
+    {
+      "version": "7.21.1",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.21.1.zip",
+          "size": 33096492,
+          "sha256": "22701dbedad103b4dada05939461c6263567987a8dbefb5529e0fe79ce6399e2",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.1-arm64.npk",
+          "size": 13438073,
+          "sha256": "b4c380c23ddef05fd59781f89201d0e7adfff479a81fffd6bd0e7ec55cd28598",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.1-arm64/section-8/nova/bin/parser",
+          "sha256": "b0727d763505382605311361764caaf8864f6b168e512dd90da6441e4ad748ce"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5840,
+        "menu": 704,
+        "parameter": 29270
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "3e871aa71aa4a7936e122adb6c16d2503717cc0081385e0128f15c5d2ffaa6dd"
+    },
+    {
+      "version": "7.21.2",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.21.2.zip",
+          "size": 27140848,
+          "sha256": "a661932ed978e2091e0a2b29d7b2b4078dba68009b5fa14f3e26110a9d5ea0e6",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.2-arm.npk",
+          "size": 12261447,
+          "sha256": "ba74a5b7ac91eb8c596e03f5674771b489ea5cd4c1ffe10889ec514f8b9e515c",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.2-arm/section-8/nova/bin/parser",
+          "sha256": "90961d09017cf3e688164ab1cf841a20acbd41e3c2b4e3ebe8984e4b8e80a46e"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5813,
+        "menu": 701,
+        "parameter": 28968
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "8edd5ef244646947d93cc857093bd9f42b453e930ee20a1e79021d6dfc81f688"
+    },
+    {
+      "version": "7.21.2",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.21.2.zip",
+          "size": 33100588,
+          "sha256": "883d91fbd46e7c20218a30e2af7684de5d7ff366de7400419ff837238e11d554",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.2-arm64.npk",
+          "size": 13442153,
+          "sha256": "ce7be46c1401c03d109ad5bcfe6e85ca4f5677a047b5bc3eb6b2a5bb7b2ba172",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.2-arm64/section-8/nova/bin/parser",
+          "sha256": "87219f15a579338bb560f8db02ce884ada72992490b3f931256b0d82274a4823"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5840,
+        "menu": 704,
+        "parameter": 29279
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "d158ebbf4675f435577df391444bd0625a224ddefc6b2f09792bb52fa4651886"
+    },
+    {
+      "version": "7.21.2",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "all_packages-x86-7.21.2.zip",
+          "size": 8223899,
+          "sha256": "2ef6612853365d8101edc67b3ff4bbe14e6fb9ffeed6bc1fd705b04565e0de63",
+          "npk_packages": 11
+        },
+        {
+          "file": "routeros-7.21.2.npk",
+          "size": 20276083,
+          "sha256": "24178987688a8663553454e21d3dbe4e464e0520e3cd8ee198e7630451721e1b",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.2/section-8/nova/bin/parser",
+          "sha256": "17d5a857801b203959838d8bafbfd0879dc4e35d1fd6bc3a673e663acb683b2d"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5722,
+        "menu": 690,
+        "parameter": 28715
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "4e1169446a29e2ac473976235378cd46272360c2bbad74d2f4aeb0dfd534ccff"
+    },
+    {
+      "version": "7.21.3",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.21.3.zip",
+          "size": 27140848,
+          "sha256": "0650abf421b84a71eb35729a5c0ce85dd8db6c91d8f0e2baa78c3564ff6196ed",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.3-arm.npk",
+          "size": 12257331,
+          "sha256": "3acea503f9f65c1c1e496ba369b190dc832d8f035bafad3d60d89325b0c4fba4",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.3-arm/section-8/nova/bin/parser",
+          "sha256": "13cf496805b9e1f496d322ecf87ddb1287cb3edfcf4155ee8e1a394444f219e2"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5813,
+        "menu": 701,
+        "parameter": 28968
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "fe2a4d53e09daaa5989e593302c87e00bcc83ebb25591b9156a89d9363f541ad"
+    },
+    {
+      "version": "7.21.3",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.21.3.zip",
+          "size": 33100588,
+          "sha256": "40307ef15852141ee21277dd92b596f08607975417d8e640f2cb4100d672374b",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.21.3-arm64.npk",
+          "size": 13442153,
+          "sha256": "7e2200a2dd02c839eb8028666889be221e387290014a56cae0624ca531cbbfd3",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.3-arm64/section-8/nova/bin/parser",
+          "sha256": "bf7904f113ca5a8e39529bde72efad7ca235377966b5ddfadd57d22ab0bdef83"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5840,
+        "menu": 704,
+        "parameter": 29279
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "f4af432d7d61dbbf141cdeaf8aad207344cd69c5e5ab3bb75c75fe08373268da"
+    },
+    {
+      "version": "7.21.3",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "all_packages-x86-7.21.3.zip",
+          "size": 8223899,
+          "sha256": "c9e34a8a78ab9e4c848e95b7659ecb4d5448f601814b2c29f9652820c763c84d",
+          "npk_packages": 11
+        },
+        {
+          "file": "routeros-7.21.3.npk",
+          "size": 20276083,
+          "sha256": "3208ae7e56c0e008fe457e10b27502e0a0dff5a954831311a85674ebadd33a0f",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.21.3/section-8/nova/bin/parser",
+          "sha256": "6e7fa7141a6b3a0b1c72920f9f721d6b416e976a172b2fd698a0005e1a74ff0e"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5722,
+        "menu": 690,
+        "parameter": 28715
+      },
+      "layouts": [
+        "console32/flags-10"
+      ],
+      "header_sizes": [
+        100
+      ],
+      "image_inventory_sha256": "b983043112450507f905a7ebacd0b681d31b39e9bc67b00c660440f496adf0c4"
+    },
+    {
+      "version": "7.22.1",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.22.1.zip",
+          "size": 27890416,
+          "sha256": "e748349e6f6e605988000c7f73d2b395cc664c84d20d0e530a62de298b6499aa",
+          "npk_packages": 16
+        },
+        {
+          "file": "routeros-7.22.1-arm.npk",
+          "size": 12262122,
+          "sha256": "9500a7b76beeb23cb5fed0a6519e1dbc6cdc7278f8ace7be2c875041c2c496fc",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.22.1-arm/section-8/nova/bin/parser",
+          "sha256": "c18ab2c829f1c81f28d097b6a0c2852032827106a294d40d8f1424e349f1a695"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5800,
+        "menu": 700,
+        "parameter": 28973
+      },
+      "layouts": [
+        "console32/flags-04"
+      ],
+      "header_sizes": [
+        104
+      ],
+      "image_inventory_sha256": "6b26b9bcb73152fa8139b52e176f5675d792d4cb6997b3de03136dc5d12c212c"
+    },
+    {
+      "version": "7.22.1",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.22.1.zip",
+          "size": 52216933,
+          "sha256": "01267f90a4327d96ca2cea7318c7ee5801e5f4b04309f5f521621f41c3b4a93d",
+          "npk_packages": 17
+        },
+        {
+          "file": "routeros-7.22.1-arm64.npk",
+          "size": 13696208,
+          "sha256": "a5fc9840a7a87832d81e9699cea81ae969b3d924847a0b4536974e5a589b2067",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.22.1-arm64/section-8/nova/bin/parser",
+          "sha256": "a5b710a2a197b075a050e74d2f82b4a99b743f14750a89f01a22b4a4db7b1150"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "alias": 2,
+        "command": 5827,
+        "menu": 703,
+        "parameter": 29290
+      },
+      "layouts": [
+        "console32/flags-04"
+      ],
+      "header_sizes": [
+        104
+      ],
+      "image_inventory_sha256": "af472f1fa649fbab920e233be4a256cadcb15b6dba829c1141e18f5756772386"
+    },
+    {
+      "version": "7.22.1",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "all_packages-x86-7.22.1.zip",
+          "size": 9821339,
+          "sha256": "573c8633bb50ec448bab7030c216c3fed6493e1970b812ca0adda8fe40f050d3",
+          "npk_packages": 11
+        },
+        {
+          "file": "routeros-7.22.1.npk",
+          "size": 20706188,
+          "sha256": "2d49bb3abeb00b4e21d363ba0a9de60f38da176b4741e157fbff79e9cd913e22",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.22.1/section-8/nova/bin/parser",
+          "sha256": "1f42b71acf6a280854ef238dbab308ca718bbbaee8868e499b89217ea7a49b57"
+        }
+      ],
+      "images": 20,
+      "decoded": 20,
+      "node_counts": {
+        "alias": 2,
+        "command": 5709,
+        "menu": 689,
+        "parameter": 28720
+      },
+      "layouts": [
+        "console32/flags-04"
+      ],
+      "header_sizes": [
+        104
+      ],
+      "image_inventory_sha256": "8804e585e7c610e7c67552f41cff6012bfaf6fe3458623afb95c216f17f65d84"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-arm.npk",
+          "size": 12282730,
+          "sha256": "8b1823fcd85af1a7326f64aff7b7623a79e790d0164c471046921476f74e6b8d",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-arm/section-8/nova/bin/parser",
+          "sha256": "99839ea8f89c1e28c2ea285a7d8be981b01c39d91a1dadc9299b60486d1782a6"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4802,
+        "menu": 567,
+        "parameter": 23610
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "bb82cc88cbd2ff48d9b5030e8425055539eb69693bf33927a65f0fed3cb40578"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-arm64.npk",
+          "size": 13880725,
+          "sha256": "2bf86ae630fbf7990ce83730d0204c006134b6e15974d9c41ae4b73883cf1557",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-arm64/section-8/nova/bin/parser",
+          "sha256": "b6e3b3a2c78ca18dd03dd0d6f727dd8e0eb5c04e64096358bbc5e464c1f770bb"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4802,
+        "menu": 567,
+        "parameter": 23611
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "4acdc528affc441f54394117e223173a68146b92d0e75c67380a4b801aa4fbab"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "mipsbe",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-mipsbe.npk",
+          "size": 11422920,
+          "sha256": "954b9e97410dae400516bde8ec7158aa81815e77f4438964ac5e2e711d440f8c",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-mipsbe/section-8/nova/bin/parser",
+          "sha256": "c74aa631960c1979e6b92966268f59f20a7843f32a14624ee553c26f9c8610b1"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4801,
+        "menu": 567,
+        "parameter": 23605
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "91518489755d389ae95b9ccc936f98cf4d502f080a944c690bc89c04719f3b86"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "mmips",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-mmips.npk",
+          "size": 10732975,
+          "sha256": "4d7f42c477973168e6de81c458d108f5b98af7e9f090267296f1e7f0e8e18bae",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-mmips/section-8/nova/bin/parser",
+          "sha256": "0b28ae5040fd3d7581f41d3214201883a95d390d92d281f76ccddb56d7fd10b4"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4769,
+        "menu": 562,
+        "parameter": 23497
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "50d650b07ada159b38f07be110a61ba0bb8c9650fb0a731d15c3b630e46d51d1"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "ppc",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-ppc.npk",
+          "size": 22074933,
+          "sha256": "58453a509770f67e7ee3f28ee0ace57ce5ee2054666bab6becae18ae21633e2a",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-ppc/section-8/nova/bin/parser",
+          "sha256": "2a3c264bd43eee8bd800812cb5ef55ceaa90e0d6bae4e24591c9e5536c1b5199"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4763,
+        "menu": 560,
+        "parameter": 23462
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "edf2fdedbacbc5ff5e1c4388802ff224a6a7fed6f32d1f212cd7954d103d0163"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "smips",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-smips.npk",
+          "size": 7195808,
+          "sha256": "c3e5e86427b8841e7ed6d2d30af5852738767a6c3325aceab98caa290f2b74cd",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-smips/section-8/nova/bin/parser",
+          "sha256": "c74aa631960c1979e6b92966268f59f20a7843f32a14624ee553c26f9c8610b1"
+        }
+      ],
+      "images": 6,
+      "decoded": 6,
+      "node_counts": {
+        "command": 3267,
+        "menu": 399,
+        "parameter": 15792
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "afe7dbe503e66dde622129e657a1379176fcd680e8b7c5d0e305f602b93d41c6"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "tile",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4-tile.npk",
+          "size": 16882949,
+          "sha256": "604bebb6f9d58f290216c1bf3a8f5f24fd7caec805bab81951175b9902e0f322",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4-tile/section-8/nova/bin/parser",
+          "sha256": "d3b7332dc494a06496075f99c26a3d0b3f74f9730372bba14621d69eeb3c2e02"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4793,
+        "menu": 566,
+        "parameter": 23592
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "bf60768a76da422bf1d589f32941ce809d4399d26b2869ea946be3ef70f8eb4d"
+    },
+    {
+      "version": "7.23.4",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "routeros-7.23.4.npk",
+          "size": 20767628,
+          "sha256": "accc92e1fc1a6aa1f09fca0fe1546211e73a30f573ba220216a7a2af9575bd53",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.23.4/section-8/nova/bin/parser",
+          "sha256": "68b0b9716b40d72f48a8f5dc5d73391a7804f24aff77e0f55cd3333c98994bc2"
+        }
+      ],
+      "images": 9,
+      "decoded": 9,
+      "node_counts": {
+        "command": 4768,
+        "menu": 562,
+        "parameter": 23585
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "db7de07f7d159c5a910a628c978d9161448c2b9ce5c8a6ab9319a9ba916e6d7d"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-arm.npk",
+          "size": 12291658,
+          "sha256": "3d91b6b9a8a0401718076e78eb61731f1fdb551104d1477d94b8d19d83388fd3",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-arm/section-8/nova/bin/parser",
+          "sha256": "6f0a0ac3ac837e78dc28401cebf3a67cff42039f46ea7d508db99eae8a4b17f6"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4816,
+        "menu": 568,
+        "parameter": 24649
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "103a481772ef51fc036785a519fb6a9fa7e535048ab32f96c8560d9c0582a5ac"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-arm64.npk",
+          "size": 13918485,
+          "sha256": "d363f53c67b5185c4e01c5924c31f7f1e09f41f80b20e7550c7d7378d06eef1d",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-arm64/section-8/nova/bin/parser",
+          "sha256": "d6ecbb1b0c0dbe3e96ccf1fb0ed617a5cfaef4f2697f67ee7436019203045156"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4816,
+        "menu": 568,
+        "parameter": 24650
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "ce2f73103d5a31ec374414cd2ebca7f9cebf24273cda90af430ce3bbb7f7757e"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "mipsbe",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-mipsbe.npk",
+          "size": 11431756,
+          "sha256": "72fa6b4e090339565d3bc5c8bb4ba07053c569d092181af5f17e3fceb477da1b",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-mipsbe/section-8/nova/bin/parser",
+          "sha256": "4c0fcc3cc611e806d5f37810b8f23b5c14b98ee84b3701e55aaed8c6fc6120f3"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4815,
+        "menu": 568,
+        "parameter": 24644
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "6844d86699cbb13085d98cdde4277d9482e70ee0c88ed03be847938ccc432f00"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "mmips",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-mmips.npk",
+          "size": 10721379,
+          "sha256": "6a5ccbc48623411c2513f8f6f1185828dd64713793df788b3f8349aeb2c4d480",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-mmips/section-8/nova/bin/parser",
+          "sha256": "4a8b56ccd8898a51c6453c6dc7ee5692f1109a2370205f3b78a56a2e7d130191"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4783,
+        "menu": 563,
+        "parameter": 24495
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "a34f62781e1b3e19fa125d40dc6f1149afff7b32248a2547118b2d4a954100e8"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "ppc",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-ppc.npk",
+          "size": 22098917,
+          "sha256": "75a0a2e5bc8abffd513dcef76cdd12002ed342f051e1fb214483a87ac9a9b66e",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-ppc/section-8/nova/bin/parser",
+          "sha256": "0ee3c07fe6e1d8dc6d130b00e7c1d3483ee372be6d06f8c39daea8c9b555207f"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4777,
+        "menu": 561,
+        "parameter": 24460
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "34f1e73bf6fceb2c70a2fdc89d2e6014737a1106df7bcea2406cdf6f3716f5bf"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "smips",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-smips.npk",
+          "size": 7192356,
+          "sha256": "2337cb7237ec41721d47113c98b33929434e78898bdfc03cfaf558768dda7756",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-smips/section-8/nova/bin/parser",
+          "sha256": "4c0fcc3cc611e806d5f37810b8f23b5c14b98ee84b3701e55aaed8c6fc6120f3"
+        }
+      ],
+      "images": 6,
+      "decoded": 6,
+      "node_counts": {
+        "command": 3274,
+        "menu": 399,
+        "parameter": 16397
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "52fbd33ab2a69a6c66db86e96c02a1ba48eb2f4f862628a5bcabb4d74de6a414"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "tile",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1-tile.npk",
+          "size": 16922693,
+          "sha256": "6519cf0d1319b35807769d3f5bc073c408c4528672702012af3fc1f123b13984",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1-tile/section-8/nova/bin/parser",
+          "sha256": "24668e741ed4d3ff21cf77f5bfce0970d166e0a719c9ee1d03fb03000d66441b"
+        }
+      ],
+      "images": 8,
+      "decoded": 8,
+      "node_counts": {
+        "command": 4807,
+        "menu": 567,
+        "parameter": 24631
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "91d3129d4c16784ce5c621490745fe4ea60a8c0264d409a453ac489f3a9379d5"
+    },
+    {
+      "version": "7.24.1",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "routeros-7.24.1.npk",
+          "size": 20829068,
+          "sha256": "100d7e3f08f32a125d9a6125613837c6046763f9aa116fe514134cdd368eef45",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.1/section-8/nova/bin/parser",
+          "sha256": "2e6f94c087d6bebfdc8e9f6b3a28576e4db8a22de47c922ee7046f3dfabd6368"
+        }
+      ],
+      "images": 9,
+      "decoded": 9,
+      "node_counts": {
+        "command": 4782,
+        "menu": 563,
+        "parameter": 24622
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "b4d42017f8f19303d99ce5361400dc154c15988b90d7592cfa6421bda1fa7e36"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "arm",
+      "inputs": [
+        {
+          "file": "all_packages-arm-7.24.2.zip",
+          "size": 29951320,
+          "sha256": "9ce7f1a2b04affee19215be2ac64d855a6d33d09b01f5ed2d3cff07c826f4a33",
+          "npk_packages": 18
+        },
+        {
+          "file": "routeros-7.24.2-arm.npk",
+          "size": 12295786,
+          "sha256": "880be4e776ba8b1d406bcf77dc6738189623e1b5dd6ef3e4fb915ecf60e9636e",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-arm/section-8/nova/bin/parser",
+          "sha256": "5193c33bd397aca8e3a25508b0f5469cdce22fa3b153ebea91d2824400726ed3"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "command": 5943,
+        "menu": 718,
+        "parameter": 30748
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "9e5784fc0f5de3e4d61e9afb65dd076e9a7cbb7269d002a5aca0557ed5ef2f53"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "arm64",
+      "inputs": [
+        {
+          "file": "all_packages-arm64-7.24.2.zip",
+          "size": 50582938,
+          "sha256": "4afdd6d6a3a6102553672157594f7d9020fdbc3a273ec5cf7f7c1c87cf4a006c",
+          "npk_packages": 18
+        },
+        {
+          "file": "routeros-7.24.2-arm64.npk",
+          "size": 13922573,
+          "sha256": "ea79bd20b0d909e286abf3329f0249ef85c2aa28bfdfc96f2a3012958de395a8",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-arm64/section-8/nova/bin/parser",
+          "sha256": "4e84fcf7a7e450f4633e4857273c0b465ddf4c59c9fc5c04b4492fb59b3ab8f8"
+        }
+      ],
+      "images": 22,
+      "decoded": 22,
+      "node_counts": {
+        "command": 5971,
+        "menu": 721,
+        "parameter": 31070
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "71a7403d6bed9741854cafcb871fa74d00f340409b9f663cfff1055df927f905"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "mipsbe",
+      "inputs": [
+        {
+          "file": "all_packages-mipsbe-7.24.2.zip",
+          "size": 2960081,
+          "sha256": "1bce20b159881548eafa52477fb2b556878f045e4510178524838a194f9364bb",
+          "npk_packages": 9
+        },
+        {
+          "file": "routeros-7.24.2-mipsbe.npk",
+          "size": 11435876,
+          "sha256": "31d8c44fc5cb8e0df548c3bc96d908e73d4e70bdabd7287b75750c832885d823",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-mipsbe/section-8/nova/bin/parser",
+          "sha256": "57f3de1a740f309a92edeaebf704ae60218391ee836dc61a048ef6dc78007782"
+        }
+      ],
+      "images": 17,
+      "decoded": 17,
+      "node_counts": {
+        "command": 5610,
+        "menu": 676,
+        "parameter": 29038
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "f1d446d84852b846f6ea3efb70795caba0377fc8632c5c21ff372eec06eb4b1e"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "mmips",
+      "inputs": [
+        {
+          "file": "all_packages-mmips-7.24.2.zip",
+          "size": 4082664,
+          "sha256": "e4baf2dcd6e65cd5a6f141fe324ee352bdc04b543ecfdf5494081bafcdc5675b",
+          "npk_packages": 10
+        },
+        {
+          "file": "routeros-7.24.2-mmips.npk",
+          "size": 10721387,
+          "sha256": "ba5acc9e644e20080af74a44f327780b5a43e53c6f9b5ae348defdeec1d39f17",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-mmips/section-8/nova/bin/parser",
+          "sha256": "f53bf5087894377ff3f68546a2e9c7555be7eae69a9b6e00899d4bfa4f307d56"
+        }
+      ],
+      "images": 18,
+      "decoded": 18,
+      "node_counts": {
+        "command": 5743,
+        "menu": 692,
+        "parameter": 29743
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "3c9c2a4a749ef9c1fea433637a8acc0342fd5b3115c39ec45c063a4d2769e9fe"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "ppc",
+      "inputs": [
+        {
+          "file": "all_packages-ppc-7.24.2.zip",
+          "size": 4172443,
+          "sha256": "d74fa15abbc401782667bc8e2790c4e49dca37d94f08776a6104b269669bcba1",
+          "npk_packages": 9
+        },
+        {
+          "file": "routeros-7.24.2-ppc.npk",
+          "size": 22098901,
+          "sha256": "9428a24386317a64dac32526b55bc2e5bea39f1970c5ff1beb39757025c2fb9c",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-ppc/section-8/nova/bin/parser",
+          "sha256": "f34a659fda0dd9370515b33b6573f2974e75a5a669ccacd06e9363f20f512959"
+        }
+      ],
+      "images": 17,
+      "decoded": 17,
+      "node_counts": {
+        "command": 5572,
+        "menu": 669,
+        "parameter": 28853
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "548613ee27e731e144df9cfe4709d0ae6bc6d96d1d6f6382beafcae5d05fc744"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "smips",
+      "inputs": [
+        {
+          "file": "all_packages-smips-7.24.2.zip",
+          "size": 930735,
+          "sha256": "7662c1fabc7c1e58b1547d8c65a70f323a37b290ad32ca7a6ec5e594873aa20a",
+          "npk_packages": 3
+        },
+        {
+          "file": "routeros-7.24.2-smips.npk",
+          "size": 7196476,
+          "sha256": "bb040235b78693c9eebde9d0ad74a7e343f07ac79b63744aaf341511beba86bf",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-smips/section-8/nova/bin/parser",
+          "sha256": "57f3de1a740f309a92edeaebf704ae60218391ee836dc61a048ef6dc78007782"
+        }
+      ],
+      "images": 9,
+      "decoded": 9,
+      "node_counts": {
+        "command": 3728,
+        "menu": 451,
+        "parameter": 19262
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "1cbc617f6f8626bdcb5f62e7e8890a8f451381d28ddc8c533f4029fdbefc238b"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "tile",
+      "inputs": [
+        {
+          "file": "all_packages-tile-7.24.2.zip",
+          "size": 10595595,
+          "sha256": "c8afccb05ae7505fcf23282b0641c49901cb1222b9d5f48f2b3017ed35766e6e",
+          "npk_packages": 11
+        },
+        {
+          "file": "routeros-7.24.2-tile.npk",
+          "size": 16923625,
+          "sha256": "40c79d5635f9005d9c0a6c0295ac2c93dcd1c6e1781ff4abb0d8177eb790333e",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2-tile/section-8/nova/bin/parser",
+          "sha256": "edfea265414868120f2a5df4beb7891445445cbc1eb9f47cdaf84aee8027f566"
+        }
+      ],
+      "images": 19,
+      "decoded": 19,
+      "node_counts": {
+        "command": 5787,
+        "menu": 700,
+        "parameter": 29969
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "33f5e4c40cb9e5bab2dc312033f73c8cecdcf93cdd9b0aceaf9405f1eeba620b"
+    },
+    {
+      "version": "7.24.2",
+      "architecture": "x86",
+      "inputs": [
+        {
+          "file": "all_packages-x86-7.24.2.zip",
+          "size": 10476996,
+          "sha256": "26dbe3f32b9f9f4a669c53a5a0d35d0d663862d6959c8d20c66e00bea442a449",
+          "npk_packages": 12
+        },
+        {
+          "file": "routeros-7.24.2.npk",
+          "size": 20833164,
+          "sha256": "26f0331e2c4aa60e019135bd09ab7da83922b3bf44261af82377a6b58b3b7911",
+          "npk_packages": 1
+        }
+      ],
+      "executables": [
+        {
+          "file": "routeros-7.24.2/section-8/nova/bin/parser",
+          "sha256": "ecb3bb929c5fb34824822f15b430f201c9f3b055fe64763dd79e32961e3b3907"
+        }
+      ],
+      "images": 21,
+      "decoded": 21,
+      "node_counts": {
+        "command": 5842,
+        "menu": 706,
+        "parameter": 30456
+      },
+      "layouts": [
+        "console32/flags-08"
+      ],
+      "header_sizes": [
+        108
+      ],
+      "image_inventory_sha256": "ce62d8a8695e4ece86be3ec596c92300d171dd192d3c18ce06a318d249cfa577"
+    }
+  ],
+  "installer_packages": [
+    {
+      "file": "mikrotik-7.24.2-arm64.iso",
+      "sha256": "594ccfd3f660b0b46b7280b7f851fbdc0134a49e91bcd0ee42e4e08b20f6ebfc",
+      "packages": [
+        {
+          "member": "calea-7.24.2-arm64.npk",
+          "sha256": "85cec7b15fed1189bdc4ebf5b6a3661330ce0ec7296cfa9feaec232fd710350c",
+          "matching_package": "all_packages-arm64-7.24.2.zip/calea-7.24.2-arm64.npk"
+        },
+        {
+          "member": "container-7.24.2-arm64.npk",
+          "sha256": "11285222f3107b752507903127d410f8fca77b2fb2d292487b671d02ae7b58d2",
+          "matching_package": "all_packages-arm64-7.24.2.zip/container-7.24.2-arm64.npk"
+        },
+        {
+          "member": "dude-7.24.2-arm64.npk",
+          "sha256": "0c1e920bab4db7499412ad050f54b1ec29835172ae4f935a6ff5e2d27b7ec744",
+          "matching_package": "all_packages-arm64-7.24.2.zip/dude-7.24.2-arm64.npk"
+        },
+        {
+          "member": "extra-nic-7.24.2-arm64.npk",
+          "sha256": "e9ef076021eaf3266145abb7db0b64d19010c96bcf41dec5b99041f11c602974",
+          "matching_package": "all_packages-arm64-7.24.2.zip/extra-nic-7.24.2-arm64.npk"
+        },
+        {
+          "member": "gps-7.24.2-arm64.npk",
+          "sha256": "debe26913bd0502a911a3d2cca6931c61cee17327ca4383ac3f49b69e620dfae",
+          "matching_package": "all_packages-arm64-7.24.2.zip/gps-7.24.2-arm64.npk"
+        },
+        {
+          "member": "iot-7.24.2-arm64.npk",
+          "sha256": "ae703b03f032df6bbba0a56187c81c45d7953a1f662941d9910d1725e48aa434",
+          "matching_package": "all_packages-arm64-7.24.2.zip/iot-7.24.2-arm64.npk"
+        },
+        {
+          "member": "iot-bt-extra-7.24.2-arm64.npk",
+          "sha256": "d33ded7bc900df802cb291dc0961343b3a59ed138c9044205b8f1159b1ec820c",
+          "matching_package": "all_packages-arm64-7.24.2.zip/iot-bt-extra-7.24.2-arm64.npk"
+        },
+        {
+          "member": "openflow-7.24.2-arm64.npk",
+          "sha256": "d2262438ba89c6ca6adbaee230a3957096036c8e0f3bd5d099b08d0aa540864b",
+          "matching_package": "all_packages-arm64-7.24.2.zip/openflow-7.24.2-arm64.npk"
+        },
+        {
+          "member": "rose-storage-7.24.2-arm64.npk",
+          "sha256": "044aba91f24b37184f631948ce4d1b4c29b7adc70ca8d96a9a3a4bbacabdcd8d",
+          "matching_package": "all_packages-arm64-7.24.2.zip/rose-storage-7.24.2-arm64.npk"
+        },
+        {
+          "member": "routeros-7.24.2-arm64.npk",
+          "sha256": "ea79bd20b0d909e286abf3329f0249ef85c2aa28bfdfc96f2a3012958de395a8",
+          "matching_package": "routeros-7.24.2-arm64.npk"
+        },
+        {
+          "member": "tr069-client-7.24.2-arm64.npk",
+          "sha256": "5575db4ac206260a88a0ac8b0b22b20d9ce49f74f75ed877a234d3e9f909875e",
+          "matching_package": "all_packages-arm64-7.24.2.zip/tr069-client-7.24.2-arm64.npk"
+        },
+        {
+          "member": "ups-7.24.2-arm64.npk",
+          "sha256": "c0c73a32c6ae33b33056545c60d53be5f30831a9fed4dec8a208b6b86b8cbca4",
+          "matching_package": "all_packages-arm64-7.24.2.zip/ups-7.24.2-arm64.npk"
+        },
+        {
+          "member": "user-manager-7.24.2-arm64.npk",
+          "sha256": "3e241b9243de4abc94ecd8a8a457d632ad84dd9149cd91af596a343029a7db43",
+          "matching_package": "all_packages-arm64-7.24.2.zip/user-manager-7.24.2-arm64.npk"
+        },
+        {
+          "member": "wifi-qcom-7.24.2-arm64.npk",
+          "sha256": "3d7b9228c46e179b987c6d5c5180695fe44a9ed0a51108ed24f27898ba8f80fc",
+          "matching_package": "all_packages-arm64-7.24.2.zip/wifi-qcom-7.24.2-arm64.npk"
+        },
+        {
+          "member": "wireless-7.24.2-arm64.npk",
+          "sha256": "154ca4cff6dad7d7f2155ccc50d64c55b216caf33d7ca3f11831f9f5ee11e022",
+          "matching_package": "all_packages-arm64-7.24.2.zip/wireless-7.24.2-arm64.npk"
+        },
+        {
+          "member": "zerotier-7.24.2-arm64.npk",
+          "sha256": "c54bbb102fa867d30a2cfc88af316dc437413572a40269ead410943e6d80ab31",
+          "matching_package": "all_packages-arm64-7.24.2.zip/zerotier-7.24.2-arm64.npk"
+        }
+      ]
+    },
+    {
+      "file": "mikrotik-7.24.2.iso",
+      "sha256": "57898af4aec3ff488bec8ba8abac85b1c730e105afe9a760c7ab6d0afe433472",
+      "packages": [
+        {
+          "member": "dude-7.24.2.npk",
+          "sha256": "1b5060395192c5a4f520e30b8f97d78b24f99658216b344690d996c0df577474",
+          "matching_package": "all_packages-x86-7.24.2.zip/dude-7.24.2.npk"
+        },
+        {
+          "member": "container-7.24.2.npk",
+          "sha256": "5c5628aed673f994ba301bc9dc3b764e4f993e209411bafa25054b64cf67790a",
+          "matching_package": "all_packages-x86-7.24.2.zip/container-7.24.2.npk"
+        },
+        {
+          "member": "calea-7.24.2.npk",
+          "sha256": "8eff4e4b0a2ffea2b6a35e7f8b010755a86c71c478f9d1f94f91607ca60c8386",
+          "matching_package": "all_packages-x86-7.24.2.zip/calea-7.24.2.npk"
+        },
+        {
+          "member": "iot-7.24.2.npk",
+          "sha256": "517f620ac2710646d1597ed41967279e9d059ff3cd6e2f1734eb0b5192312750",
+          "matching_package": "all_packages-x86-7.24.2.zip/iot-7.24.2.npk"
+        },
+        {
+          "member": "gps-7.24.2.npk",
+          "sha256": "c0e6cddb02485673286d296b9b4d21144ed062091ff29b5895cea5ac630b3d5f",
+          "matching_package": "all_packages-x86-7.24.2.zip/gps-7.24.2.npk"
+        },
+        {
+          "member": "openflow-7.24.2.npk",
+          "sha256": "52939f3ba4ed55b93fb15b56cef13a5da4c2935913258b1953c9b869122db314",
+          "matching_package": "all_packages-x86-7.24.2.zip/openflow-7.24.2.npk"
+        },
+        {
+          "member": "rose-storage-7.24.2.npk",
+          "sha256": "f4ad767fd0fd240544af6903da83f4ac9ab880121a87bc166b65646a7b5d100f",
+          "matching_package": "all_packages-x86-7.24.2.zip/rose-storage-7.24.2.npk"
+        },
+        {
+          "member": "routeros-7.24.2.npk",
+          "sha256": "26f0331e2c4aa60e019135bd09ab7da83922b3bf44261af82377a6b58b3b7911",
+          "matching_package": "routeros-7.24.2.npk"
+        },
+        {
+          "member": "tr069-client-7.24.2.npk",
+          "sha256": "0e29e150c5450765dcaabe84244499a88f1b20747428bccb7a7aed9418a6ae15",
+          "matching_package": "all_packages-x86-7.24.2.zip/tr069-client-7.24.2.npk"
+        },
+        {
+          "member": "ups-7.24.2.npk",
+          "sha256": "343e9d01d6ae4b15c66d184b5b8e8185ac1626f103ec60824319bf2ff04bad75",
+          "matching_package": "all_packages-x86-7.24.2.zip/ups-7.24.2.npk"
+        },
+        {
+          "member": "user-manager-7.24.2.npk",
+          "sha256": "3de897aaaca32aac1a41cf69db7eb6c8724f0c34c0cd1f9e5b5045595002f718",
+          "matching_package": "all_packages-x86-7.24.2.zip/user-manager-7.24.2.npk"
+        },
+        {
+          "member": "wireless-7.24.2.npk",
+          "sha256": "40f7f8f348e87539cb94f2e406ef52dfaf706545ba0e2e017c99fdf8d428e861",
+          "matching_package": "all_packages-x86-7.24.2.zip/wireless-7.24.2.npk"
+        }
+      ]
+    },
+    {
+      "file": "install-image-7.24.2.zip",
+      "sha256": "fb0513363337206db73a985f8a57265300d56ba8f6c629026c0cbf05f6afba2d",
+      "packages": [
+        {
+          "member": "1.NPK",
+          "sha256": "26f0331e2c4aa60e019135bd09ab7da83922b3bf44261af82377a6b58b3b7911",
+          "matching_package": "routeros-7.24.2.npk"
+        },
+        {
+          "member": "2.NPK",
+          "sha256": "343e9d01d6ae4b15c66d184b5b8e8185ac1626f103ec60824319bf2ff04bad75",
+          "matching_package": "all_packages-x86-7.24.2.zip/ups-7.24.2.npk"
+        },
+        {
+          "member": "3.NPK",
+          "sha256": "c0e6cddb02485673286d296b9b4d21144ed062091ff29b5895cea5ac630b3d5f",
+          "matching_package": "all_packages-x86-7.24.2.zip/gps-7.24.2.npk"
+        },
+        {
+          "member": "4.NPK",
+          "sha256": "8eff4e4b0a2ffea2b6a35e7f8b010755a86c71c478f9d1f94f91607ca60c8386",
+          "matching_package": "all_packages-x86-7.24.2.zip/calea-7.24.2.npk"
+        },
+        {
+          "member": "8.NPK",
+          "sha256": "1b5060395192c5a4f520e30b8f97d78b24f99658216b344690d996c0df577474",
+          "matching_package": "all_packages-x86-7.24.2.zip/dude-7.24.2.npk"
+        },
+        {
+          "member": "9.NPK",
+          "sha256": "0e29e150c5450765dcaabe84244499a88f1b20747428bccb7a7aed9418a6ae15",
+          "matching_package": "all_packages-x86-7.24.2.zip/tr069-client-7.24.2.npk"
+        },
+        {
+          "member": "10.NPK",
+          "sha256": "f4ad767fd0fd240544af6903da83f4ac9ab880121a87bc166b65646a7b5d100f",
+          "matching_package": "all_packages-x86-7.24.2.zip/rose-storage-7.24.2.npk"
+        },
+        {
+          "member": "12.NPK",
+          "sha256": "517f620ac2710646d1597ed41967279e9d059ff3cd6e2f1734eb0b5192312750",
+          "matching_package": "all_packages-x86-7.24.2.zip/iot-7.24.2.npk"
+        },
+        {
+          "member": "14.NPK",
+          "sha256": "5c5628aed673f994ba301bc9dc3b764e4f993e209411bafa25054b64cf67790a",
+          "matching_package": "all_packages-x86-7.24.2.zip/container-7.24.2.npk"
+        },
+        {
+          "member": "15.NPK",
+          "sha256": "40f7f8f348e87539cb94f2e406ef52dfaf706545ba0e2e017c99fdf8d428e861",
+          "matching_package": "all_packages-x86-7.24.2.zip/wireless-7.24.2.npk"
+        },
+        {
+          "member": "17.NPK",
+          "sha256": "52939f3ba4ed55b93fb15b56cef13a5da4c2935913258b1953c9b869122db314",
+          "matching_package": "all_packages-x86-7.24.2.zip/openflow-7.24.2.npk"
+        }
+      ]
+    }
+  ],
+  "full_cli_7_24_2": {
+    "npk_packages": 98,
+    "options": [
+      "--no-symlinks",
+      "--console-parser <matching main-package executable> (add-ons)"
+    ],
+    "integrity": "CLI extraction verified each NPK and ZIP collection",
+    "results": [
+      {
+        "architecture": "arm",
+        "console_images": 21,
+        "decoded": 21,
+        "errors": []
+      },
+      {
+        "architecture": "arm64",
+        "console_images": 22,
+        "decoded": 22,
+        "errors": []
+      },
+      {
+        "architecture": "mipsbe",
+        "console_images": 17,
+        "decoded": 17,
+        "errors": []
+      },
+      {
+        "architecture": "mmips",
+        "console_images": 18,
+        "decoded": 18,
+        "errors": []
+      },
+      {
+        "architecture": "ppc",
+        "console_images": 17,
+        "decoded": 17,
+        "errors": []
+      },
+      {
+        "architecture": "smips",
+        "console_images": 9,
+        "decoded": 9,
+        "errors": []
+      },
+      {
+        "architecture": "tile",
+        "console_images": 19,
+        "decoded": 19,
+        "errors": []
+      },
+      {
+        "architecture": "x86",
+        "console_images": 21,
+        "decoded": 21,
+        "errors": []
+      }
+    ]
+  }
+}

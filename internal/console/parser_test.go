@@ -27,14 +27,14 @@ func TestParseELFRequiresRouterOSParserABI(t *testing.T) {
 	}{
 		{"class", func(b []byte) { b[4] = 2 }, ""},
 		{"byte order", func(b []byte) { b[5] = 2 }, ""},
-		{"machine", func(b []byte) { binary.LittleEndian.PutUint16(b[18:], 62) }, "ARM32"},
-		{"type", func(b []byte) { binary.LittleEndian.PutUint16(b[16:], 3) }, "ARM32"},
+		{"machine", func(b []byte) { binary.LittleEndian.PutUint16(b[18:], 62) }, "unsupported console parser ABI"},
+		{"type", func(b []byte) { binary.LittleEndian.PutUint16(b[16:], 3) }, "unsupported console parser ABI"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			b := append([]byte(nil), data...)
 			tc.edit(b)
-			if _, err := parseELF(b, hash(b), profile{"synthetic", 0x6a994576}); err == nil || (tc.want != "" && !strings.Contains(err.Error(), tc.want)) {
+			if _, err := NewParser(b); err == nil || (tc.want != "" && !strings.Contains(err.Error(), tc.want)) {
 				t.Fatalf("parseELF error = %v, want rejection containing %q", err, tc.want)
 			}
 		})
@@ -62,5 +62,27 @@ func TestNodeClassesRejectsUnknownRootVtable(t *testing.T) {
 	_, p := fixture(t)
 	if _, err := p.nodeClasses(0xdeadbeef); err == nil || !strings.Contains(err.Error(), "root vtable") {
 		t.Fatalf("nodeClasses error = %v, want missing-root-vtable error", err)
+	}
+}
+
+func TestELFPreflightRejectsExpandingMetadata(t *testing.T) {
+	_, p := fixture(t)
+	for _, tc := range []struct {
+		name   string
+		offset int
+		value  uint32
+	}{
+		{"oversized string table", 0x800 + 3*40 + 20, 0xffffffff},
+		{"compressed string table", 0x800 + 3*40 + 8, 0x800},
+		{"oversized section table", 32, 0xfffffffc},
+		{"extended section count", 48, 0},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			b := append([]byte(nil), p.data...)
+			binary.LittleEndian.PutUint32(b[tc.offset:], tc.value)
+			if _, err := NewParser(b); !errors.Is(err, ErrUnsupportedParser) {
+				t.Fatalf("unchecked ELF metadata: %v", err)
+			}
+		})
 	}
 }

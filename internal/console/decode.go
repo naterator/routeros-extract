@@ -17,7 +17,7 @@ import (
 const (
 	maxNodes      = 100000
 	maxReferences = 200000
-	maxStrings    = 100000
+	maxStrings    = 200000
 	maxString     = 65536
 	maxPathBytes  = 4096
 	maxTextBytes  = 16 << 20
@@ -39,27 +39,31 @@ type Reference struct {
 }
 
 type Node struct {
-	Address            Address     `json:"address"`
-	Offset             Address     `json:"offset"`
-	Vtable             Address     `json:"vtable"`
-	Kind               string      `json:"kind"`
-	Layout             string      `json:"layout"`
-	Flags04            Address     `json:"flags_04"`
-	Flags08            Address     `json:"flags_08"`
-	OptionalOffset     uint8       `json:"optional_fields_offset"`
-	NameAddress        Address     `json:"name_address"`
-	Name               string      `json:"name"`
-	Optional0400       *Address    `json:"optional_0400,omitempty"`
-	SummaryAddress     *Address    `json:"summary_address,omitempty"`
-	Summary            *string     `json:"summary,omitempty"`
-	DescriptionAddress *Address    `json:"description_address,omitempty"`
-	Description        *string     `json:"description,omitempty"`
-	Parent             *Address    `json:"parent,omitempty"`
-	Children           []Reference `json:"children,omitempty"`
-	Properties         []Reference `json:"properties,omitempty"`
-	ArgumentsFirst     []Reference `json:"arguments_first,omitempty"`
-	ArgumentsSecond    []Reference `json:"arguments_second,omitempty"`
-	Paths              []string    `json:"paths"`
+	Address              Address     `json:"address"`
+	Offset               Address     `json:"offset"`
+	Vtable               Address     `json:"vtable"`
+	Kind                 string      `json:"kind"`
+	Layout               string      `json:"layout"`
+	Flags04              Address     `json:"flags_04"`
+	Flags08              Address     `json:"flags_08"`
+	OptionalOffset       uint8       `json:"optional_fields_offset"`
+	NameAddress          Address     `json:"name_address"`
+	Name                 string      `json:"name"`
+	OptionalExtra        *Address    `json:"optional_extra,omitempty"`
+	OptionalByte         *uint8      `json:"optional_byte,omitempty"`
+	Target               *Address    `json:"target,omitempty"`
+	Optional0400         *Address    `json:"optional_0400,omitempty"`
+	SummaryAddress       *Address    `json:"summary_address,omitempty"`
+	Summary              *string     `json:"summary,omitempty"`
+	DescriptionAddress   *Address    `json:"description_address,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	PropertyVectorOffset Address     `json:"property_vector_offset,omitempty"`
+	Parent               *Address    `json:"parent,omitempty"`
+	Children             []Reference `json:"children,omitempty"`
+	Properties           []Reference `json:"properties,omitempty"`
+	ArgumentsFirst       []Reference `json:"arguments_first,omitempty"`
+	ArgumentsSecond      []Reference `json:"arguments_second,omitempty"`
+	Paths                []string    `json:"paths"`
 }
 
 type Metadata struct {
@@ -74,6 +78,8 @@ type Metadata struct {
 	ParserSHA256         string         `json:"parser_sha256"`
 	ParserProfile        string         `json:"parser_profile"`
 	Root                 Address        `json:"root"`
+	HeaderSize           int            `json:"header_size"`
+	Layout               string         `json:"layout"`
 	HeaderWords          []Address      `json:"header_words"`
 	NodeCounts           map[string]int `json:"node_counts"`
 	NodesWithPaths       int            `json:"nodes_with_paths"`
@@ -122,6 +128,7 @@ func BaseName(name string) (uint32, error) {
 
 type reader struct {
 	data       []byte
+	order      binary.ByteOrder
 	base       uint32
 	err        error
 	nodes      map[uint32]*Node
@@ -161,7 +168,10 @@ func (r *reader) word(offset uint64) uint32 {
 	if b == nil {
 		return 0
 	}
-	return binary.LittleEndian.Uint32(b)
+	if r.order == nil {
+		return binary.LittleEndian.Uint32(b)
+	}
+	return r.order.Uint32(b)
 }
 
 func (r *reader) offset(address uint32, size uint64) (uint64, bool) {
@@ -302,13 +312,18 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 	if parser == nil {
 		return nil, errors.New("a matching console parser is required")
 	}
-	r := &reader{data: data, base: base, nodes: map[uint32]*Node{}, strings: map[uint32]*String{}, cache: map[uint32]*String{}, stringWork: min(int64(len(data))*32, 128<<20)}
+	r := &reader{data: data, base: base, order: parser.order, nodes: map[uint32]*Node{}, strings: map[uint32]*String{}, cache: map[uint32]*String{}, stringWork: min(int64(len(data))*32, 128<<20)}
 	stamp := r.word(0)
-	if stamp != parser.stamp {
-		return nil, fmt.Errorf("console build word %#x does not match parser profile %s (%#x)", stamp, parser.Profile, parser.stamp)
-	}
-	root := r.word(0x1c)
+	headerSize, rootField, stringField := uint64(0x6c), uint64(0x1c), uint64(0x3c)
+	root := r.word(rootField)
 	rootOffset, ok := r.offset(root, 32)
+	if !ok || root%4 != 0 {
+		// The earlier header has 20 words; require a valid root and its checked
+		// vtable below before using this layout.
+		headerSize, rootField, stringField = 0x50, 0x10, 0x28
+		root = r.word(rootField)
+		rootOffset, ok = r.offset(root, 32)
+	}
 	if !ok || root%4 != 0 {
 		return nil, errors.New("console root pointer is outside the image or unaligned")
 	}
@@ -316,11 +331,67 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 	if err != nil {
 		return nil, err
 	}
-	image := &Image{Metadata: Metadata{Input: source, Size: len(data), SHA256: hash(data), MappingBase: Address(base), WordSize: 4, ByteOrder: "little", Compatibility: Address(stamp), WordAsUnixTime: time.Unix(int64(stamp), 0).UTC().Format("2006-01-02T15:04:05+00:00"), ParserSHA256: parser.SHA256, ParserProfile: parser.Profile, Root: Address(root), NodeCounts: map[string]int{}}, Nodes: []*Node{}, Strings: []*String{}}
-	for offset := uint64(0); offset < 0x6c; offset += 4 {
+	optionalMask, summaryMask, descriptionMask := uint8(4), uint8(8), uint8(16)
+	byteMask, extraMask := uint8(0), uint8(0)
+	layout := "console32"
+	// Header strings provide a checked anchor when fields are inserted before
+	// them. Do not interpret arbitrary pointers as header text.
+	foundStrings := false
+	for _, field := range []uint64{0x28, 0x38, 0x3c} {
+		values := []string{"", "yes", "no"}
+		valid := true
+		for i, want := range values {
+			addr := r.word(field + uint64(i)*4)
+			o, ok := r.offset(addr, uint64(len(want)+1))
+			if !ok || !bytes.Equal(data[o:o+uint64(len(want)+1)], append([]byte(want), 0)) {
+				valid = false
+				break
+			}
+		}
+		if valid {
+			stringField = field
+			foundStrings = true
+			break
+		}
+	}
+	if !foundStrings {
+		return nil, errors.New("unrecognized console header string layout")
+	}
+	switch stringField {
+	case 0x28:
+		byteMask = 2
+		layout += "/flags-08-legacy"
+	case 0x3c:
+		layout += "/flags-08"
+	case 0x38:
+		if kind := parser.accessor(parser.vtables[r.word(rootOffset)][20]); kind == accessorThis || kind == accessorVoid {
+			summaryMask, descriptionMask = 16, 32
+			byteMask, extraMask = 2, 8
+			layout += "/flags-10"
+		} else {
+			optionalMask, summaryMask, descriptionMask = 2, 4, 8
+			layout += "/flags-04"
+		}
+	}
+	// Preserve the known header and subsequent pointer/length extension words.
+	headerSize = stringField + 0x28
+	for headerSize+4 <= uint64(len(data)) && headerSize < 0x80 {
+		v := r.word(headerSize)
+		_, ptr := r.offset(v, 0)
+		if v > 0x10000 && !ptr {
+			break
+		}
+		headerSize += 4
+	}
+	byteOrder := "little"
+	if parser.order == binary.BigEndian {
+		byteOrder = "big"
+	}
+	image := &Image{Metadata: Metadata{Input: source, Size: len(data), SHA256: hash(data), MappingBase: Address(base), WordSize: 4, ByteOrder: byteOrder, Compatibility: Address(stamp), WordAsUnixTime: time.Unix(int64(stamp), 0).UTC().Format("2006-01-02T15:04:05+00:00"), ParserSHA256: parser.SHA256, ParserProfile: parser.Profile, Root: Address(root), HeaderSize: int(headerSize), Layout: layout, NodeCounts: map[string]int{}}, Nodes: []*Node{}, Strings: []*String{}}
+	for offset := uint64(0); offset < headerSize; offset += 4 {
 		image.Metadata.HeaderWords = append(image.Metadata.HeaderWords, Address(r.word(offset)))
 	}
-	for offset := uint64(0x6c); offset+4 <= uint64(len(data)) && r.err == nil; offset += 4 {
+	for offset := headerSize; offset+4 <= uint64(len(data)) && r.err == nil; offset += 4 {
 		vtable := r.word(offset)
 		if _, ok := parser.vtables[vtable]; ok {
 			image.Metadata.VtableMatchedObjects++
@@ -343,24 +414,39 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 			break
 		}
 		flags := r.word(offset + 4)
-		node := &Node{Address: Address(uint64(base) + offset), Offset: Address(offset), Vtable: Address(vtable), Kind: class.kind, Layout: class.layout, Flags04: Address(flags), Flags08: Address(r.word(offset + 8)), OptionalOffset: uint8(flags), NameAddress: Address(nameAddress), Name: name.Text, Paths: []string{}}
-		cursor := (offset + uint64(uint8(flags)) + 3) &^ 3
-		if flags&0x1c00 != 0 && uint8(flags) < 16 {
+		optionalOffset, optionalFlags := data[offset+4], data[offset+5]
+		node := &Node{Address: Address(uint64(base) + offset), Offset: Address(offset), Vtable: Address(vtable), Kind: class.kind, Layout: class.layout, Flags04: Address(flags), Flags08: Address(r.word(offset + 8)), OptionalOffset: optionalOffset, NameAddress: Address(nameAddress), Name: name.Text, Paths: []string{}}
+		if optionalFlags&(byteMask|optionalMask|extraMask|summaryMask|descriptionMask) != 0 && optionalOffset < 16 {
 			r.fail("invalid console optional-field offset at %#x", offset)
 			break
 		}
-		if flags&0x400 != 0 {
+		cursor := offset + uint64(optionalOffset)
+		if optionalFlags&byteMask != 0 {
+			b := r.read(cursor, 1)
+			if b != nil {
+				value := b[0]
+				node.OptionalByte = &value
+			}
+			cursor++
+		}
+		cursor = (cursor + 3) &^ 3
+		if optionalFlags&optionalMask != 0 {
 			value := Address(r.word(cursor))
 			node.Optional0400 = &value
 			cursor += 4
 		}
+		if optionalFlags&extraMask != 0 {
+			value := Address(r.word(cursor))
+			node.OptionalExtra = &value
+			cursor += 4
+		}
 		for _, field := range []struct {
-			bit     uint32
+			bit     uint8
 			role    string
 			address **Address
 			value   **string
-		}{{0x800, "summary", &node.SummaryAddress, &node.Summary}, {0x1000, "description", &node.DescriptionAddress, &node.Description}} {
-			if flags&field.bit == 0 {
+		}{{summaryMask, "summary", &node.SummaryAddress, &node.Summary}, {descriptionMask, "description", &node.DescriptionAddress, &node.Description}} {
+			if optionalFlags&field.bit == 0 {
 				continue
 			}
 			address := Address(r.word(cursor))
@@ -370,6 +456,9 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 				*field.value = &text.Text
 			}
 			cursor += 4
+		}
+		if r.err != nil {
+			return nil, fmt.Errorf("node %s at %s: %w", node.Name, node.Address, r.err)
 		}
 		r.nodes[uint32(node.Address)] = node
 		r.chargeText(len(node.Name))
@@ -387,9 +476,19 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 	if n := r.nodes[root]; n == nil || n.Name != "root" || n.Kind != "menu" {
 		return nil, errors.New("console image has no valid root menu")
 	}
+	propertyOffsets, err := r.propertyOffsets(image.Nodes, layout)
+	if err != nil {
+		return nil, err
+	}
 	for _, node := range image.Nodes {
 		offset := uint64(node.Offset)
 		switch node.Kind {
+		case "alias":
+			a := Address(r.word(offset + 0x10))
+			if r.nodes[uint32(a)] == nil {
+				r.fail("unresolved console alias target %s", a)
+			}
+			node.Target = &a
 		case "menu":
 			node.Children = r.vector(offset+0x10, 4)
 			parent := r.word(offset + 0x18)
@@ -400,18 +499,27 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 				a := Address(parent)
 				node.Parent = &a
 			}
-			if node.Layout == "settings" {
-				node.Properties = r.vector(offset+0x20, 4)
-			}
-			if node.Layout == "item-table" {
-				node.Properties = r.vector(offset+0x60, 8)
+			if node.Layout == "settings" || node.Layout == "item-table" {
+				if field := propertyOffsets[node.Vtable]; field != 0 {
+					stride := uint32(8)
+					if field < 0x60 {
+						stride = 4
+						node.Layout = "settings"
+					} else {
+						node.Layout = "item-table"
+					}
+					node.PropertyVectorOffset = Address(field)
+					node.Properties = r.vector(offset+field, stride)
+				} else {
+					node.Properties = []Reference{}
+				}
 			}
 		case "command":
 			node.ArgumentsFirst = r.vector(offset+0x10, 4)
 			node.ArgumentsSecond = r.vector(offset+0x18, 4)
 		}
 		if r.err != nil {
-			return nil, r.err
+			return nil, fmt.Errorf("node %s at %s (%s): %w", node.Name, node.Address, node.Layout, r.err)
 		}
 	}
 	if err := r.paths(root); err != nil {
@@ -420,11 +528,11 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 	for _, field := range []struct {
 		offset uint64
 		name   string
-	}{{0x3c, "empty"}, {0x40, "yes"}, {0x44, "no"}} {
+	}{{stringField, "empty"}, {stringField + 4, "yes"}, {stringField + 8, "no"}} {
 		r.text(r.word(field.offset), "header:"+field.name)
 	}
 	for offset := 0; offset+4 <= len(data) && r.err == nil; offset += 4 {
-		address := binary.LittleEndian.Uint32(data[offset:])
+		address := r.word(uint64(offset))
 		if _, ok := r.offset(address, 1); !ok {
 			continue
 		}
@@ -505,6 +613,9 @@ func (r *reader) paths(root uint32) error {
 		if err := add(address, label); err != nil {
 			return err
 		}
+		if node.Target != nil {
+			return walk(uint32(*node.Target), path, depth+1)
+		}
 		for _, group := range [][]Reference{node.Properties, node.ArgumentsFirst, node.ArgumentsSecond} {
 			for _, entry := range group {
 				target := uint32(entry.Node)
@@ -531,4 +642,99 @@ func (r *reader) paths(root uint32) error {
 		sort.Strings(r.nodes[address].Paths)
 	}
 	return nil
+}
+
+// Property-vector fields have moved within settings and item-table classes.
+// Check every instance of a vtable against the supported structural layouts.
+// Two plausible nonempty layouts are ambiguous; invalid fields cannot become
+// empty property lists simply because another candidate contains zeros.
+func (r *reader) propertyOffsets(nodes []*Node, layout string) (map[Address]uint64, error) {
+	groups := map[Address][]*Node{}
+	for _, node := range nodes {
+		if node.Layout == "item-table" || node.Layout == "settings" {
+			groups[node.Vtable] = append(groups[node.Vtable], node)
+		}
+	}
+	result := map[Address]uint64{}
+	work := maxReferences * 8
+	for vtable, group := range groups {
+		chosen := uint64(0)
+		empty := false
+		fields := []uint64{0x20, 0x60, 0x68}
+		switch layout {
+		case "console32/flags-08-legacy":
+			fields = []uint64{0x20, 0x64}
+		case "console32/flags-10", "console32/flags-04":
+			fields = []uint64{0x28, 0x68}
+		}
+		invalidCandidate := false
+		for _, field := range fields {
+			stride := uint32(8)
+			if field < 0x60 {
+				stride = 4
+			}
+			if (group[0].Layout == "item-table" && field < 0x60) || (group[0].Layout == "settings" && layout != "console32/flags-08-legacy" && field >= 0x60) {
+				continue
+			}
+			valid, nonempty := true, false
+			for _, node := range group {
+				offset := uint64(node.Offset) + field
+				if offset+8 > uint64(len(r.data)) || (node.OptionalOffset != 0 && field+8 > uint64(node.OptionalOffset)) {
+					valid = false
+					break
+				}
+				ptr, size := r.word(offset), r.word(offset+4)
+				if size == 0 {
+					if ptr != 0 {
+						if _, ok := r.offset(ptr, 0); !ok {
+							valid = false
+							break
+						}
+					}
+					continue
+				}
+				if ptr%4 != 0 || size%stride != 0 || size/stride > maxReferences {
+					valid = false
+					break
+				}
+				start, ok := r.offset(ptr, uint64(size))
+				if !ok {
+					valid = false
+					break
+				}
+				for pos := start; pos < start+uint64(size); pos += uint64(stride) {
+					work--
+					if work < 0 {
+						return nil, errors.New("console property-layout work limit exceeded")
+					}
+					target := r.nodes[r.word(pos)]
+					if target == nil || target.Kind != "parameter" {
+						valid = false
+						break
+					}
+				}
+				if !valid {
+					break
+				}
+				nonempty = true
+			}
+			if !valid {
+				invalidCandidate = true
+				continue
+			}
+			if !nonempty {
+				empty = true
+				continue
+			}
+			if chosen != 0 {
+				return nil, fmt.Errorf("ambiguous console property-vector layout for vtable %s", vtable)
+			}
+			chosen = field
+		}
+		if chosen == 0 && (!empty || invalidCandidate) {
+			return nil, fmt.Errorf("unsupported console property-vector layout for vtable %s", vtable)
+		}
+		result[vtable] = chosen
+	}
+	return result, nil
 }

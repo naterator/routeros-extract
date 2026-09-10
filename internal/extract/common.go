@@ -29,10 +29,11 @@ const MaxEntries = 100000
 var errByteLimit = errors.New("decoded/input size exceeds limit")
 
 type Options struct {
-	MaxBytes     int64
-	SectionsOnly bool
-	NoDerived    bool
-	NoSymlinks   bool
+	MaxBytes      int64
+	SectionsOnly  bool
+	NoDerived     bool
+	NoSymlinks    bool
+	ConsoleParser string
 }
 
 func (o Options) limit() int64 {

@@ -105,7 +105,8 @@ Run `routeros-extract --help` or a command's `--help` for all flags.
 * `console INPUT... --parser ELF -o DIRECTORY` decodes console `.mem` files
   or searches an extracted rootfs. It writes command paths, parameter and
   help records, strings, and an integrity ledger. The parser must match the
-  firmware; supported profiles are currently 7.24.1 ARM64 and 7.24.2 ARM64.
+  firmware. Layout detection supports all 7.24.2 architectures and tested
+  earlier RouterOS 7 releases without a per-release allowlist.
 * `analyze DIRECTORY...` adds nested payload reports to an extraction that was
   created with `--no-derived`. The `derived/` directory must not already exist.
 * `compare BEFORE AFTER -o DIRECTORY` compares original archive paths,
@@ -166,11 +167,12 @@ stored with a deterministic `.__variant_<tag>` suffix while `archive_path` and
 `variant_tag_hex` retain the original relationship.
 
 Supported console images are also decoded automatically into
-`derived/console/` when their matching parser is present. Unsupported builds
+`derived/console/` when their matching parser is present. Unsupported layouts
 and add-ons without a parser keep their source images and receive a note.
-For a separate add-on, use `console --parser` with the corresponding main
-package's parser. See [the console format documentation](docs/CONSOLE-MEM.md)
-for supported builds, output files, and the recovered layout.
+For add-ons, pass `--console-parser FILE` to `extract` or `analyze`, or use
+`console --parser FILE`, with the corresponding main package executable.
+See [the console format documentation](docs/CONSOLE-MEM.md)
+for tested layouts, output files, and the recovered layout.
 
 For an `all_packages.zip`, `extract` preserves each NPK under `npk/` and
 extracts it under `packages/<package-name>/`. `zip-metadata.json` lists every

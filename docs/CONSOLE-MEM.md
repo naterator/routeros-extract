@@ -1,285 +1,242 @@
 # RouterOS console `.mem` images
 
-RouterOS uses prebuilt memory images for its console definitions. The `.mem`
-files under `nova/lib/console/` contain menu trees, commands, parameters,
-short and long help strings, and additional parser data. Feature bundles
-provide further images under `bndl/<package>/nova/lib/console/`.
+RouterOS stores console definitions as memory images under
+`nova/lib/console/` and `bndl/<package>/nova/lib/console/`. They contain menu
+trees, commands, parameters, help text, and other parser objects. They are
+uncompressed binary object graphs, not plain string tables.
 
-The console parser maps each file at the address given by its decimal
-filename. A pointer into that mapping can be converted to a file offset:
+The filename supplies the mapping address. For `1073741824.mem`, the base
+is `0x40000000`: a pointer to `0x4001da9c` refers to file offset `0x1da9c`.
+Other pointers address virtual function tables in the matching executable,
+usually `nova/bin/parser`. Earlier releases use `nova/bin/console`.
 
-```text
-1073741824.mem             decimal 1073741824 = 0x40000000
-stored pointer            0x4001da9c
-file offset               0x4001da9c - 0x40000000 = 0x1da9c
-bytes at that offset      "root\0"
-```
+## Extract the definitions
 
-Other pointers refer to virtual function tables in `nova/bin/parser`.
-Resolving those requires the matching executable; subtracting the `.mem`
-base from every word would produce incorrect results.
-
-## Decode console files
-
-Decode one image, supplying the parser from the same firmware:
+Normal NPK extraction decodes console files automatically when the matching
+executable is in the same filesystem:
 
 ```sh
-routeros-extract console rootfs/nova/lib/console/1073741824.mem \
-  --parser rootfs/nova/bin/parser -o console-output
+routeros-extract extract routeros-7.24.2-arm64.npk -o extracted
 ```
 
-Decode all numeric `.mem` files in an extracted filesystem:
+Decode an extracted filesystem or individual numeric `.mem` files:
 
 ```sh
-routeros-extract console rootfs \
-  --parser rootfs/nova/bin/parser -o console-output
+routeros-extract console extracted/routeros-7.24.2-arm64/rootfs \
+  --parser extracted/routeros-7.24.2-arm64/rootfs/nova/bin/parser \
+  -o console-output
 routeros-extract verify console-output
 ```
 
-The command also accepts several files or directories from one firmware
-build. It skips nonnumeric `.mem` filenames found during directory searches,
-does not follow directory symlinks, and rejects duplicate or overlapping
-mapping ranges. An explicitly supplied file must have a numeric filename.
-The output directory must be new.
+For add-ons, supply the executable from the main package of the **same
+release and architecture**:
 
-Each image gets a directory named after its decimal mapping base containing:
+```sh
+routeros-extract extract all_packages-arm64-7.24.2.zip \
+  --console-parser extracted/routeros-7.24.2-arm64/rootfs/nova/bin/parser \
+  -o addons
+```
 
-- `<base>.mem`: the unchanged source image, retaining a usable filename.
-- `nodes.json`: decoded nodes, original offsets and flags, vtable addresses,
-  names, help, menu relationships, properties, and argument groups.
+`analyze DIRECTORY --console-parser FILE` also accepts this fallback.
+An executable found inside the package takes precedence. The standalone
+`console` command accepts multiple files or directories belonging to one
+build. For older firmware, pass `nova/bin/console` to `--parser` instead.
+No extracted code is executed, and no external decoder is required.
+
+Standalone output contains an `index.json`, an integrity ledger, and a
+subdirectory per mapping with:
+
+- `<base>.mem`: the original bytes and numeric filename.
+- `nodes.json`: node addresses, flags, names, help, relationships, and paths.
 - `commands.txt`: recovered menu and command paths with short help.
-- `strings.tsv`: pointer-backed string candidates, file offsets, addresses,
-  reference counts, roles, encoding, and JSON-escaped text.
+- `strings.tsv`: pointer-backed strings, addresses, roles, and encodings.
 
-`index.json` records input and parser hashes, mappings, build values, and
-counts. `integrity.json` covers the retained images and generated reports.
+Automatic extraction writes reports under
+`derived/console/<filesystem>/<base>/`. Its manifest records successful
+and skipped images. Original files remain intact. `--no-derived` disables
+this analysis.
 
-Normal `extract` and `analyze` also decode supported console images when a
-matching `nova/bin/parser` is present in the same extracted filesystem.
-Their reports appear under `derived/console/<filesystem>/<base>/`, with a
-`derived/console/manifest.json` recording decoded and skipped files. The
-source images remain in the normal filesystem extraction. `--no-derived`
-skips this work, as it does the other derived reports.
+## Compatibility across releases and architectures
 
-An add-on may contain console images without the main parser. Those files
-remain intact and receive a note explaining the missing parser. Use the
-standalone `console --parser` command with the parser from the corresponding
-main-system package to decode them.
+The decoder has **no release-number or parser-hash allowlist**. It reads the
+ELF architecture and byte order, finds candidate C++ vtables, checks the
+root's type accessors, and recognizes supported header and flag layouts.
+Property vectors must resolve to parameter objects. Binary and image
+SHA-256 hashes remain in the reports for provenance.
 
-## Supported builds and ABI
+All eight 7.24.2 platforms were checked, including every NPK in each
+`all_packages` ZIP. There were 144 console images and 278,668 decoded nodes.
+Packages without console images were included in the inventory. The supplied
+ARM64 and x86 installer ISOs contain 16 and 12 NPKs respectively, all
+byte-identical to packages in that corpus. The install-image ZIP's FAT image
+contains 11 matching NPKs.
 
-The recovered layout is checked against these exact parser binaries:
-
-| Package | `nova/bin/parser` SHA-256 |
-|---|---|
-| 7.24.1 ARM64 | `d6ecbb1b0c0dbe3e96ccf1fb0ed617a5cfaef4f2697f67ee7436019203045156` |
-| 7.24.2 ARM64 | `4e84fcf7a7e450f4633e4857273c0b465ddf4c59c9fc5c04b4492fb59b3ab8f8` |
-
-Both executables are **ARM32**, despite the ARM64 package label. Their
-console images use **32-bit little-endian words and absolute pointers**.
-The decoder runs natively on all host platforms supported by the tool; it
-does not emulate the firmware's CPU or execute extracted code.
-
-Other firmware builds and CPU families are not yet supported by the console
-decoder. A version string or ELF architecture alone does not establish
-compatibility. Standalone decoding rejects an unsupported parser; automatic
-package analysis records a note and keeps the original files. This does not
-restrict ordinary NPK or filesystem extraction.
-
-Each console image and parser input is limited to the smaller of
-`--max-bytes` and 64 MiB. Additional bounds cover node counts, references,
-string scanning, and path expansion. The decoder rejects invalid pointers,
-truncated records, malformed vectors, and cycles in the traversed hierarchy.
-Decoded report text is limited to 16 MiB per image, counting repeated help
-and expanded paths as well as string candidates.
-
-## Loader evidence
-
-These addresses refer to the supplied **7.24.2** parser executable:
-
-| Virtual address | Observed operation |
-|---|---|
-| `0x000a7bf4` | Loads `/nova/lib/console` before calling `nv::getAllDirs`. |
-| `0x000a7d8c` | Calls `strtoul` on a directory entry's name. |
-| `0x000a7da0` | Compares the remaining suffix with `.mem`. |
-| `0x000a7e10` | Calls the mapping helper with the parsed address and filename. |
-| `0x00046770` | Calls `mmap` with that address, the file size, protection `1`, flags `0x11`, and file offset zero. |
-| `0x00046774` | Checks that the returned mapping equals the requested address. |
-| `0x000a7e80`–`0x000a7e8c` | Compares the first word with the first loaded image. |
-| `0x000a7ed4` | Reads the root object pointer at image offset `0x1c`. |
-
-Protection `1` is `PROT_READ`; flags `0x11` combine `MAP_SHARED` and
-`MAP_FIXED`. This fixed mapping makes the absolute pointers usable without
-relocation. See the [Linux mapping constants](https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/asm-generic/mman-common.h)
-and [mmap documentation](https://man7.org/linux/man-pages/man2/mmap.2.html).
-
-The first word serves as a module compatibility value. A mismatch produces
-a warning containing `!= root:` and skips that module's registration. All
-eight images from each examined version share the same value:
-
-| Version | First word | Interpreted as Unix seconds |
+| RouterOS package architecture | Console executable ABI | Pointer byte order |
 |---|---|---|
-| 7.24.1 | `0x6a884e5a` | 2026-08-21 13:10:50 UTC |
-| 7.24.2 | `0x6a994576` | 2026-09-03 10:01:26 UTC |
+| ARM, ARM64 | ELF32 ARM | Little endian |
+| MIPSBE, SMIPS | ELF32 MIPS | Big endian |
+| MMIPS | ELF32 MIPS | Little endian |
+| PPC | ELF32 PowerPC | Big endian |
+| TILE | ELF32 TILE-Gx | Little endian |
+| x86 | ELF32 i386 | Little endian |
 
-A build timestamp is a plausible interpretation; the loader's equality
-check is confirmed. The extraction tool additionally checks this word
-against the expected value for its supported parser profile.
+Package architecture is not pointer width: the examined ARM64 and TILE
+console executables also use 32-bit pointers. The host running this tool
+can have a different CPU and byte order.
 
-## Image header
+Earlier samples cover 7.1.5, 7.20.1, 7.20.2, 7.20.6, 7.21.1, 7.21.2,
+7.21.3, 7.22.1, 7.23.4, and 7.24.1. The detailed architecture, package, and image
+counts are in [console-validation.json](console-validation.json). The tested
+7.1.5 TILE main image still needs a different alias-method recognizer;
+its seven bundled module images decode. The examined 6.49.19 executables
+use another virtual-method layout and are rejected by the console decoder.
+Ordinary NPK extraction still retains those files.
 
-The observed header is `0x6c` bytes: 27 little-endian 32-bit words. The names
-below describe recovered roles, not original C++ member names.
+A routine rebuild does not require a source change. New vtable addresses,
+parser hashes, compatibility words, and command definitions are read from
+the inputs. A changed object layout, unfamiliar compiler sequence, or new
+ELF ABI can require another structural decoder. Testing these samples cannot
+guarantee every historical or future format. Unsupported or malformed
+images produce an error in `console`, or a recorded skip during automatic
+analysis; the tool does not label a strings-only scan as a decoded graph.
 
-| File offset | Contents |
-|---|---|
-| `0x00` | Build/module compatibility word. |
-| `0x04`–`0x14` | Five pointers to small parser/value objects; exact roles undecoded. |
-| `0x18` | Zero in these samples. |
-| `0x1c` | Root menu object pointer. |
-| `0x20` | Shared `export` command object pointer. |
-| `0x24` | Shared `recursive-print` command object pointer. |
-| `0x28` | Shared `alias` command object pointer. |
-| `0x2c`, `0x30` | Pointer and byte length for an additional table; length `0x50` here. |
-| `0x34`, `0x38` | Pointer and variable byte length for another data area; layout undecoded. |
-| `0x3c` | Pointer to the empty string; also the fallback for absent help. |
-| `0x40` | Pointer to `yes`. |
-| `0x44` | Pointer to `no`. |
-| `0x48` | Zero in these samples. |
-| `0x4c` | Shared `comment` parameter object pointer. |
-| `0x50` | Shared `disabled` parameter object pointer. |
-| `0x54` | Shared `dead` parameter object pointer. |
-| `0x58`, `0x5c` | Pointer/byte-length pair; length `0x80` here. |
-| `0x60`, `0x64` | Another pointer/byte-length pair; length `0x80` here. |
-| `0x68` | Additional table pointer; role undecoded. |
+## Header and loader
 
-Strings, objects, and supporting arrays follow. The image does not need
-decompression before these definitions can be read.
+The loader parses the decimal filename and maps the file at that address.
+In the examined 7.24.2 ARM64 package's ARM32 parser, the directory lookup
+starts near `0x000a7bf4`; `0x000a7d8c` calls `strtoul` and `0x000a7da0`
+checks `.mem`. The helper at `0x00046770` calls `mmap` with protection `1`
+and flags `0x11`: `PROT_READ`, `MAP_SHARED`, and `MAP_FIXED`.
+See the [Linux mapping constants](https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/asm-generic/mman-common.h).
+These addresses describe that executable, not offsets used by the decoder.
 
-## Object records
+The first word is a **module compatibility value**. The loader compares
+it with the first loaded image, warning and skipping a mismatched module.
+The tool likewise checks equality within a collection. It does not require
+a fixed expected value for a particular executable: 7.24.2 MIPSBE and SMIPS
+have identical parser binaries but different module compatibility words.
+Interpreting the word as Unix seconds is useful context, not an established
+format version or proof that the supplied parser matches the image.
 
-Objects begin with pointers into the matching parser's `.rodata` section.
-Those locations contain virtual function tables used by indirect ARM calls.
-The identified tables also have preceding offset-to-top and typeinfo words,
-consistent with the [C++ virtual table layout](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#vtable-components);
-both preceding words are zero here.
+Headers grew as fields were added:
 
-The common node prefix is:
+| Examined family | Root pointer field | Empty/yes/no pointer fields | Header bytes observed |
+|---|---|---|---|
+| 7.1.5 | `0x10` | `0x28`, `0x2c`, `0x30` | `0x50` |
+| 7.20.x | `0x1c` | `0x38`, `0x3c`, `0x40` | `0x60` |
+| 7.21.x | `0x1c` | `0x38`, `0x3c`, `0x40` | `0x64` |
+| 7.22.1 | `0x1c` | `0x38`, `0x3c`, `0x40` | `0x68` |
+| 7.23.4, 7.24.1, 7.24.2 | `0x1c` | `0x3c`, `0x40`, `0x44` | `0x6c` |
+
+These versions are observations, not selection rules. The reader checks
+root and string anchors, then scans bounded pointer/length extension words.
+`header_size` and `header_words` report that inferred prefix. Unrecognized
+additional tables remain undecoded.
+
+In the `0x6c` layout, `0x20`, `0x24`, and `0x28` point to shared `export`,
+`recursive-print`, and `alias` commands. `0x2c`/`0x30` and `0x34`/`0x38`
+are pointer/byte-length pairs. `0x4c`, `0x50`, and `0x54` point to shared
+`comment`, `disabled`, and `dead` parameters. Further vectors occupy
+`0x58`/`0x5c` and `0x60`/`0x64`; `0x68` is another pointer.
+
+## Objects and virtual methods
 
 | Object offset | Contents |
 |---|---|
-| `+0x00` | Vtable pointer into `parser`. |
-| `+0x04` | One-byte offset to optional fields, followed by packed flags. |
-| `+0x08` | Additional packed flags. |
-| `+0x0c` | Pointer to a NUL-terminated name; some parameter names are empty. |
-| `+0x10` onward | Type-specific fields. |
+| `+0x00` | Vtable pointer into the matching executable's `.rodata`. |
+| `+0x04` | Byte offset to optional fields. |
+| `+0x05` onward | Packed flags; their interpretation varies by layout. |
+| `+0x08` | Further flags, preserved as a native-order word. |
+| `+0x0c` | Pointer to a NUL-terminated name. |
+| `+0x10` onward | Class-specific data. |
 
-The decoder identifies node families through their vtables and shared
-virtual methods. `menu`, `command`, `parameter`, `directory`, `settings`,
-and `item-table` are descriptions of observed behavior, not recovered
-source-level class names. Unrecognized type-specific fields remain
-undecoded; their original bytes are retained in the source image.
+The observed non-RTTI tables have two preceding zero words: offset-to-top
+and typeinfo, consistent with the [C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#vtable-components).
+Within the supported node family, virtual slots 10, 11, and 12 return the
+object itself for parameters, commands, and menus respectively, and zero
+for the other two categories. Slot 9 is shared by ordinary nodes. The tool
+recognizes complete trivial accessors for each supported CPU; it does not
+run a disassembler or emulate arbitrary instructions. Older alias objects
+forward those calls through a target pointer at `+0x10`.
 
-For example, the main 7.24.2 image has this root object:
+`menu`, `command`, `parameter`, `alias`, `directory`, `settings`, and
+`item-table` are descriptions of behavior, not recovered C++ class names.
+The main 7.24.2 ARM64 image's root is at file offset `0x1905c`, with vtable
+`0x000d0818`, name pointer `0x4001da9c`, and 82 child pointers. Those
+addresses are evidence from one sample, not constants needed for another.
 
-```text
-file offset 0x1905c:  0x000d0818   vtable in parser .rodata
-file offset 0x19060:  0x00008a20   optional-field offset and flags
-file offset 0x19064:  0x00000000   additional flags
-file offset 0x19068:  0x4001da9c   name -> "root"
-file offset 0x1906c:  0x4001daa4   child pointer array
-file offset 0x19070:  0x00000148   328 bytes = 82 child pointers
-file offset 0x19074:  0x00000000   parent
-file offset 0x19078:  0x00000000   additional menu field
-file offset 0x1907c:  0x40015ff4   short help -> "internal commands"
-```
+## Optional fields and text
 
-The first entries at parser address `0x000d0818` point to ARM routines at
-`0x0001db50`, `0x0001efc4`, `0x00092f8c`, and `0x0009c060`. The routine at
-`0x00092f8c` traverses children to format names and help; `0x0009c060`
-follows menu choices into parser dispatch.
+Read the offset at `+0x04` and flags at `+0x05` as **bytes**, regardless of
+pointer byte order. For example, bytes `20 8a 00 00` represent native word
+`0x00008a20` on little-endian systems and `0x208a0000` on big-endian systems;
+the optional-field offset remains `0x20` in both.
 
-## Optional fields and strings
+The following masks apply to the byte at `+0x05`:
 
-Let `flags` be the little-endian word at object offset `+0x04`. Its low byte
-is an offset, not a reliable total record size. It can be zero when no
-optional fields are present. To find the first optional field, compute:
+| Report layout suffix | Optional byte | Optional word | Extra word | Short help | Long help |
+|---|---|---|---|---|---|
+| `flags-08-legacy` | `0x02` | `0x04` | — | `0x08` | `0x10` |
+| `flags-10` | `0x02` | `0x04` | `0x08` | `0x10` | `0x20` |
+| `flags-04` | — | `0x02` | — | `0x04` | `0x08` |
+| `flags-08` | — | `0x04` | — | `0x08` | `0x10` |
 
-```text
-cursor = align_up(object_address + (flags & 0xff), 4)
-```
+Start at the object address plus its optional-field offset. Consume a
+present optional byte, align to four bytes, then consume present words and
+help pointers in table order. The offset can be zero when no optional data
+is present; it is not a reliable total object size. Other optional fields
+can follow the decoded fields.
 
-Consume these fields in order, only when their bits are set:
+For compatibility with earlier reports, `optional_0400` still names the
+first optional word, including in `flags-04`, where its physical mask is
+`0x02`. Its meaning remains unknown. `optional_byte` and `optional_extra`
+retain the additional older fields. Header anchors and checked virtual
+methods distinguish the supported flag layouts; a module need not itself
+contain short help on its root.
 
-| Mask | Field |
-|---|---|
-| `0x00000400` | Four-byte value/reference; exact meaning undecoded. |
-| `0x00000800` | Pointer to short help. |
-| `0x00001000` | Pointer to long help. |
-
-Other optional fields follow. The short-help accessor is at
-`0x0002c958`/`0x0002c998`; the long-help accessor is at `0x00046928`. Both
-skip preceding optional fields when necessary.
-
-The shared `comment` node at file offset `0x1d944`, for example, has flags
-`0x00801a14`. Its short-help pointer is at object offset `0x14`, followed by
-the long-help pointer at `0x18`.
-
-Text is NUL-terminated and mostly ASCII. Longer help often contains CRLF.
-It is not uniformly UTF-8: the watchdog description at file offset `0x13c1`
-contains a single `0xa0` byte between `per` and `10 seconds`. The decoder
-tries ASCII, UTF-8, then a reversible Latin-1 interpretation and records
-the choice in `strings.tsv`.
-
-Strings referenced by validated nodes are labeled `name`, `summary`, or
-`description`. Other printable strings reached through aligned words are
-labeled `unclassified-candidate`: some may be enum or validator data, while
-an integer can also accidentally resemble a pointer. Candidate strings are
+Text is NUL-terminated, usually ASCII, and sometimes contains CRLF or
+non-UTF-8 bytes. The decoder records ASCII, UTF-8, or a reversible Latin-1
+interpretation. Validated node strings receive `name`, `summary`, or
+`description` roles. Other printable strings reached through aligned words
+are candidates: an integer can accidentally resemble a pointer. They are
 not automatically treated as command definitions.
 
-## Menus, arguments, and properties
+## Relationships and validation
 
-The vectors use a start pointer and **byte length**, rather than an element
-count or a start/end pair.
+Vectors contain a pointer and a **byte length**, not an element count.
 
-| Node layout | Object offsets | Entry layout |
+| Node | Field offsets | Entries |
 |---|---|---|
-| All menus | `+0x10` pointer, `+0x14` byte length | Four-byte child-node pointers. |
-| All menus | `+0x18` | Parent menu pointer, or zero. |
-| Settings menu | `+0x20` pointer, `+0x24` byte length | Four-byte property pointers. |
-| Item-table menu | `+0x60` pointer, `+0x64` byte length | Eight-byte entries: property pointer, then flags. |
-| Command | `+0x10` pointer, `+0x14` byte length | First argument-node vector. |
-| Command | `+0x18` pointer, `+0x1c` byte length | Second argument-node vector. |
+| Menu children | `+0x10`, `+0x14` | Four-byte node pointers. |
+| Menu parent | `+0x18` | Menu pointer or zero. |
+| Settings properties | `+0x20` or `+0x28`, followed by length | Four-byte parameter pointers. |
+| Item-table properties | `+0x60`, `+0x64`, or `+0x68`, followed by length | Parameter pointer and flags, eight bytes total. |
+| Command arguments | `+0x10`/`+0x14`, `+0x18`/`+0x1c` | Two separate node-pointer vectors. |
+| Alias target | `+0x10` | Another node; calls and paths follow this target. |
 
-The two argument groups remain separate in JSON; their positional/named
-semantics have not been fully established. Property-entry flags remain
-numeric. The lookup routine at `0x00045168` explicitly checks bit `0x08`
-before considering an item-table property.
+Property-vector positions are checked across instances of the same vtable.
+Every nonempty candidate must resolve to parameters; ambiguous candidates
+are rejected. `property_vector_offset` records the selected relative offset.
+The positional/named meaning of the command argument groups is unresolved,
+so JSON keeps them separate. Property flags remain numeric.
 
-`paths` contains recovered menu or command paths. A path containing ` :: `
-denotes a property or argument of the preceding menu/command. This separator
-is report notation, not RouterOS syntax. A shared object can have multiple
-paths. Objects without a path through the decoded relationships remain in
-`nodes.json` with an empty `paths` list. Empty relationship arrays and absent
-parent pointers may be omitted from JSON.
+A path containing ` :: ` denotes an argument or property in the report; it
+is not RouterOS syntax. Shared nodes and alias targets can acquire several
+paths. Unreachable nodes remain in JSON with an empty path list. Recovered
+paths and help do not establish command availability on a running router.
 
-## Validation and remaining fields
+Each image and executable is limited to the smaller of `--max-bytes` and
+64 MiB. Limits also cover ELF sections, vtables, nodes, references, candidate
+strings, layout probes, and path expansion. Decoded report text is limited
+to 16 MiB per image, including repeated text. Collection input rejects
+duplicate bases, overlapping mappings, and mixed compatibility words.
+Directory discovery skips nonnumeric `.mem` names and follows no symlinks.
 
-The eight images in the supplied 7.24.2 ARM64 package contain 568 menu
-records, 4,816 command records, and 24,651 parameter records. The main image
-alone contains 425, 3,575, and 18,150 respectively. These counts include
-shared and internal definitions; they do not count unique usable commands
-on a particular router.
+The eight original 7.24.2 ARM64 images retain exact parity with the earlier
+decoder for all pre-existing decoded fields, command text, and string rows.
+New tests generate small ELF and object fixtures for both byte orders,
+CPU accessors, moved vectors, older flags, aliases, malformed inputs, and
+automatic/add-on extraction. Firmware samples are not checked into the repo.
 
-All decoded fields, command listings, and string records matched the
-research Python decoder for 16 images across 7.24.1 and 7.24.2. Automatic
-NPK extraction produced the same decoded records, and both complete package
-extractions passed source and integrity verification. Ordinary tests use
-small synthetic images and a synthetic ELF, with no vendor fixtures in the
-repository. See [VALIDATION.md](VALIDATION.md) for the validation scope.
-
-Defaults, enum/value tables, validator/expression objects, dispatch IDs,
-complete flag semantics, and the additional header tables need further
-analysis. Names and help alone do not establish runtime behavior or command
-availability. Supporting another parser build requires checking its object
-layout and accessors before adding a compatible profile.
+Defaults, enum/value tables, validator and expression objects, dispatch IDs,
+complete flag meanings, and additional header tables still need analysis.

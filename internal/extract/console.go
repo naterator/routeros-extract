@@ -149,6 +149,9 @@ func Console(inputs []string, parserSource, destination string, opt Options) (Co
 		if err != nil {
 			return report, fmt.Errorf("%s: %w", file.source, err)
 		}
+		if len(report.Modules) > 0 && image.Metadata.Compatibility != report.Modules[0].Compatibility {
+			return report, fmt.Errorf("%s: console compatibility word differs from the other images; decode each build separately", file.source)
+		}
 		report.Modules = append(report.Modules, image.Metadata)
 	}
 	d, err := newDisk(destination)
@@ -207,15 +210,31 @@ func analyzeConsole(d *disk, files []consoleFile, parsers map[string]consolePars
 	if len(files) == 0 {
 		return nil
 	}
+	var fallback *console.Parser
+	if opt.ConsoleParser != "" {
+		b, err := ReadInput(opt.ConsoleParser, consoleOptions(opt))
+		if err != nil {
+			return err
+		}
+		fallback, err = console.NewParser(b)
+		if err != nil {
+			return err
+		}
+	}
+	stamps := map[string]console.Address{}
 	reports := []consoleAnalysis{}
 	used := map[string]bool{}
 	for _, file := range files {
 		record := consoleAnalysis{Source: file.source}
 		p, found := parsers[file.section]
+		if !found && fallback != nil {
+			p = consoleParser{parser: fallback}
+			found = true
+		}
 		var image *console.Image
 		err := p.err
 		if !found {
-			err = errors.New("matching nova/bin/parser is absent; use console --parser with the main package's parser")
+			err = errors.New("matching nova/bin/parser or nova/bin/console is absent; supply the main package executable with --console-parser or console --parser")
 		}
 		folder := path.Join("derived/console", file.section, strconv.FormatUint(uint64(file.base), 10))
 		if err == nil && used[folder] {
@@ -230,6 +249,13 @@ func analyzeConsole(d *disk, files []consoleFile, parsers map[string]consolePars
 					return fmt.Errorf("manifest hash mismatch before console analysis: %s", file.source)
 				}
 				image, err = console.Decode(b, file.base, p.parser, file.source)
+			}
+		}
+		if err == nil {
+			if stamp, found := stamps[file.section]; found && stamp != image.Metadata.Compatibility {
+				err = errors.New("console compatibility word differs from other images in this filesystem")
+			} else {
+				stamps[file.section] = image.Metadata.Compatibility
 			}
 		}
 		if err != nil {

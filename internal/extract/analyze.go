@@ -141,9 +141,11 @@ func analyze(d *disk, m Metadata, opt Options) (Analysis, error) {
 			if digest(b) != item.SHA256 {
 				return summary, fmt.Errorf("manifest hash mismatch before analysis: %s", source)
 			}
-			if item.Path == "nova/bin/parser" {
-				p, err := console.NewParser(b)
-				consoleParsers[s.ExtractedTo] = consoleParser{p, err}
+			if item.Path == "nova/bin/parser" || item.Path == "nova/bin/console" {
+				if _, found := consoleParsers[s.ExtractedTo]; !found || item.Path == "nova/bin/parser" {
+					p, err := console.NewParser(b)
+					consoleParsers[s.ExtractedTo] = consoleParser{p, err}
+				}
 			}
 			if base, ok := isConsoleImage(item.Path); ok {
 				consoleImages = append(consoleImages, consoleFile{source: source, section: s.ExtractedTo, sha256: item.SHA256, base: base})
