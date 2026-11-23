@@ -1,5 +1,54 @@
 # Validation
 
+## Releases through 7.25.2
+
+Validated on 2026-11-23 with Go 1.27.4 on macOS ARM64. The replay covers
+the 7.24.2 baseline, the 7.24.3 through 7.24.7 patch releases, and 7.25,
+7.25.1, and 7.25.2. The 7.24.6 and 7.24.7 builds came from the long-term
+channel. [MikroTik 7.24 release history](https://mikrotik.com/download/changelogs?channelFilter=&versionFilter=7.24)
+and [7.25 release history](https://mikrotik.com/download/changelogs?channelFilter=stable&versionFilter=7.25).
+
+Each release was tested with the official main NPK and `all_packages` ZIP
+for ARM, ARM64, MIPSBE, MMIPS, PPC, SMIPS, TILE, and x86. The replay ran
+full CLI extraction with `--no-symlinks` and `verify --source`, including
+artifact hashes and byte-for-byte NPK section round trips. Each add-on ZIP
+used the matching main package's console parser. The console report was
+checked against every numeric `.mem` image in the filesystem manifests,
+including add-on images. All 16 downloads for the 7.24.2 baseline matched
+the previously recorded hashes. [Original validation results](validation.json)
+
+Every NPK reported the expected package version. The 7.25 release stores a
+zero patch field, so the NPK metadata reports `7.25.0`.
+
+The initial 1.1.1 replay found one skipped image in each of the 7.24.6 MIPSBE
+and SMIPS main packages. A word in help text happened to equal a console
+vtable address. The decoder now checks the name pointer against the image
+mapping before treating a speculative vtable match as a node. A full 7.24.6
+CLI retest passed after the fix. A replay of the console decoder across the
+entire matrix also passed, with byte-for-byte matches in the node JSON,
+command listings, and strings for all 1,294 previously decoded images.
+`make test vet` passed for all three Go modules. The console regression tests
+cover coincidental vtable matches and unresolved references to skipped candidates.
+
+The replay recorded the source SHA-256 values and counts for each input.
+[Machine-readable results](release-validation.json)
+
+| RouterOS | Main NPKs | Add-on NPKs | Console images | Decoded nodes |
+| --- | ---: | ---: | ---: | ---: |
+| 7.24.2 | 8 | 90 | 144 | 278,668 |
+| 7.24.3 | 8 | 90 | 144 | 278,724 |
+| 7.24.4 | 8 | 90 | 144 | 278,724 |
+| 7.24.5 | 8 | 90 | 144 | 278,724 |
+| 7.24.6 | 8 | 90 | 144 | 278,724 |
+| 7.24.7 | 8 | 90 | 144 | 278,724 |
+| 7.25 | 8 | 90 | 144 | 281,156 |
+| 7.25.1 | 8 | 90 | 144 | 281,156 |
+| 7.25.2 | 8 | 90 | 144 | 281,156 |
+
+On ARM64, standalone console decoding also passed for 7.25.2. The
+comparison reports for 7.24.2 to 7.25.2 and 7.25 to 7.25.2 passed output
+integrity verification.
+
 ## Console decoder
 
 Validated on 2026-09-09 with Go 1.27.1 on macOS ARM64:
@@ -70,6 +119,9 @@ Release-readiness checks passed:
 - Workflow validation with `actionlint` and source scanning with Gitleaks: no findings.
 - All 12 release builds: macOS, Linux, Windows, FreeBSD, NetBSD, and OpenBSD, each on AMD64 and ARM64, with CGO disabled. The native macOS ARM64 binary also passed version, help, and embedded-license checks.
 
-Runtime tests were executed on macOS ARM64. Cross-compilation does not establish native behavior on the other platforms. The build workflow runs tests and vet on Linux, macOS, and Windows after pushes and pull requests; these hosted checks have not yet run for the initial commit. Release assets are uploaded only for published releases.
+The September runtime checks ran on macOS ARM64. Checks for the other platforms
+in that run covered cross-compilation. The results predate the first hosted CI
+run. The build workflow runs tests and vet on Linux, macOS, and Windows after
+pushes and pull requests and uploads release assets on publication.
 
 Per-input source hashes and verification results are recorded in [validation.json](validation.json). Replay outputs and cross-compiled binaries were generated in temporary directories and removed after validation. Original RouterOS packages and generated extraction trees are excluded from the source repository; normal tests use small synthetic or upstream public-domain fixtures. Use the opt-in corpus tests described in the [README](../README.md) to test additional releases. These results establish support for the sampled formats, not every historical or future RouterOS format.

@@ -16,14 +16,14 @@ Normal NPK extraction decodes console files automatically when the matching
 executable is in the same filesystem:
 
 ```sh
-routeros-extract extract routeros-7.24.2-arm64.npk -o extracted
+routeros-extract extract routeros-7.25.2-arm64.npk -o extracted
 ```
 
 Decode an extracted filesystem or individual numeric `.mem` files:
 
 ```sh
-routeros-extract console extracted/routeros-7.24.2-arm64/rootfs \
-  --parser extracted/routeros-7.24.2-arm64/rootfs/nova/bin/parser \
+routeros-extract console extracted/routeros-7.25.2-arm64/rootfs \
+  --parser extracted/routeros-7.25.2-arm64/rootfs/nova/bin/parser \
   -o console-output
 routeros-extract verify console-output
 ```
@@ -32,8 +32,8 @@ For add-ons, supply the executable from the main package of the **same
 release and architecture**:
 
 ```sh
-routeros-extract extract all_packages-arm64-7.24.2.zip \
-  --console-parser extracted/routeros-7.24.2-arm64/rootfs/nova/bin/parser \
+routeros-extract extract all_packages-arm64-7.25.2.zip \
+  --console-parser extracted/routeros-7.25.2-arm64/rootfs/nova/bin/parser \
   -o addons
 ```
 
@@ -64,8 +64,15 @@ root's type accessors, and recognizes supported header and flag layouts.
 Property vectors must resolve to parameter objects. Binary and image
 SHA-256 hashes remain in the reports for provenance.
 
-All eight 7.24.2 platforms were checked, including every NPK in each
-`all_packages` ZIP. There were 144 console images and 278,668 decoded nodes.
+Validation covers every final release from 7.24.2 through 7.25.2 across all
+eight package architectures. The ARM64 parser hash and compatibility word
+changed from release to release. The decoder recognized the same
+`console32/flags-08` layout and 108-byte header across those ARM64 builds.
+[Release validation matrix](VALIDATION.md#releases-through-7252)
+
+The original 7.24.2 validation checked all eight platforms, including every
+NPK in each `all_packages` ZIP. There were 144 console images and 278,668
+decoded nodes.
 Packages without console images were included in the inventory. The supplied
 ARM64 and x86 installer ISOs contain 16 and 12 NPKs respectively, all
 byte-identical to packages in that corpus. The install-image ZIP's FAT image
@@ -149,6 +156,12 @@ are pointer/byte-length pairs. `0x4c`, `0x50`, and `0x54` point to shared
 | `+0x08` | Further flags, preserved as a native-order word. |
 | `+0x0c` | Pointer to a NUL-terminated name. |
 | `+0x10` onward | Class-specific data. |
+
+An aligned word in help text can have the same value as a vtable address.
+The decoder checks that a candidate has a complete 16-byte prefix and a
+name pointer into the mapped image before accepting it as a node. The root
+has its own validation. Graph validation rejects references to skipped
+candidates.
 
 The observed non-RTTI tables have two preceding zero words: offset-to-top
 and typeinfo, consistent with the [C++ ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#vtable-components).

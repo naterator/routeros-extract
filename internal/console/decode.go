@@ -397,14 +397,21 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 			image.Metadata.VtableMatchedObjects++
 		}
 		class, ok := classes[vtable]
-		if !ok {
+		if !ok || offset+16 > uint64(len(data)) {
+			continue
+		}
+		address := base + uint32(offset)
+		nameAddress := r.word(offset + 12)
+		// An aligned word in text can match a vtable. Require a name pointer
+		// into the image before accepting a speculative node. The root and
+		// graph references are validated separately.
+		if _, valid := r.offset(nameAddress, 1); !valid && address != root {
 			continue
 		}
 		if len(image.Nodes) >= maxNodes {
 			r.fail("too many console nodes")
 			break
 		}
-		nameAddress := r.word(offset + 12)
 		name := r.text(nameAddress, "name")
 		if r.err != nil {
 			break
@@ -415,7 +422,7 @@ func Decode(data []byte, base uint32, parser *Parser, source string) (*Image, er
 		}
 		flags := r.word(offset + 4)
 		optionalOffset, optionalFlags := data[offset+4], data[offset+5]
-		node := &Node{Address: Address(uint64(base) + offset), Offset: Address(offset), Vtable: Address(vtable), Kind: class.kind, Layout: class.layout, Flags04: Address(flags), Flags08: Address(r.word(offset + 8)), OptionalOffset: optionalOffset, NameAddress: Address(nameAddress), Name: name.Text, Paths: []string{}}
+		node := &Node{Address: Address(address), Offset: Address(offset), Vtable: Address(vtable), Kind: class.kind, Layout: class.layout, Flags04: Address(flags), Flags08: Address(r.word(offset + 8)), OptionalOffset: optionalOffset, NameAddress: Address(nameAddress), Name: name.Text, Paths: []string{}}
 		if optionalFlags&(byteMask|optionalMask|extraMask|summaryMask|descriptionMask) != 0 && optionalOffset < 16 {
 			r.fail("invalid console optional-field offset at %#x", offset)
 			break

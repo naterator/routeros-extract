@@ -108,6 +108,37 @@ func TestDecodeRejectsMalformedImages(t *testing.T) {
 	}
 }
 
+func TestDecodeIgnoresUnreferencedVtableWordInPayload(t *testing.T) {
+	data, p := fixture(t)
+	// The parser's vtable address is a valid value anywhere in an image, so
+	// arbitrary payload can contain it by coincidence. This record is outside
+	// the graph and has an impossible name pointer. It must not abort decoding.
+	b := slices.Clone(data)
+	binary.LittleEndian.PutUint32(b[0x500:], 0x20008)
+	binary.LittleEndian.PutUint32(b[0x50c:], 0xffffffff)
+	got, err := Decode(b, 0x40000000, p, "fixture")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got.Nodes) != 5 {
+		t.Fatalf("decoded %d nodes, want 5", len(got.Nodes))
+	}
+}
+
+func TestDecodeRejectsReferencedSpeculativeVtable(t *testing.T) {
+	data, p := fixture(t)
+	// A graph reference must still fail when the candidate is filtered out.
+	// The vector points at a vtable-shaped record whose name is outside the
+	// mapped image, so it is not a valid node.
+	b := slices.Clone(data)
+	binary.LittleEndian.PutUint32(b[0x500:], 0x20008)
+	binary.LittleEndian.PutUint32(b[0x50c:], 0xffffffff)
+	binary.LittleEndian.PutUint32(b[0x300:], 0x40000500)
+	if _, err := Decode(b, 0x40000000, p, "fixture"); err == nil || !strings.Contains(err.Error(), "unresolved console node") {
+		t.Fatalf("error = %v, want unresolved referenced node", err)
+	}
+}
+
 func TestConsoleFilenames(t *testing.T) {
 	for _, name := range []string{"0.mem", "1.mem", "4294967296.mem", "1073741824 2.mem", "-1.mem", "0x40000000.mem", "file.mem", "1073741824.bin", ".mem"} {
 		if _, err := BaseName(name); err == nil {

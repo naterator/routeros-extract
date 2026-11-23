@@ -105,8 +105,8 @@ Run `routeros-extract --help` or a command's `--help` for all flags.
 * `console INPUT... --parser ELF -o DIRECTORY` decodes console `.mem` files
   or searches an extracted rootfs. It writes command paths, parameter and
   help records, strings, and an integrity ledger. The parser must match the
-  firmware. Layout detection supports all 7.24.2 architectures and tested
-  earlier RouterOS 7 releases without a per-release allowlist.
+  firmware. The decoder detects the layout from the input.
+  [Tested console releases and limits](docs/CONSOLE-MEM.md)
 * `analyze DIRECTORY...` adds nested payload reports to an extraction that was
   created with `--no-derived`. The `derived/` directory must not already exist.
 * `compare BEFORE AFTER -o DIRECTORY` compares original archive paths,
@@ -123,13 +123,18 @@ The Cobra root command also supplies `--version` and shell completion. For
 example:
 
 ```sh
-routeros-extract inspect --json routeros-7.24.2-arm64.npk
-routeros-extract extract routeros-7.24.2-arm64.npk -o extracted
-routeros-extract extract all_packages-arm64-7.24.2.zip -o extracted
-routeros-extract verify extracted/routeros-7.24.2-arm64 \
-  --source routeros-7.24.2-arm64.npk
-routeros-extract console rootfs --parser rootfs/nova/bin/parser \
+routeros-extract inspect --json routeros-7.25.2-arm64.npk
+routeros-extract extract routeros-7.25.2-arm64.npk -o extracted
+routeros-extract verify extracted/routeros-7.25.2-arm64 \
+  --source routeros-7.25.2-arm64.npk
+routeros-extract console extracted/routeros-7.25.2-arm64/rootfs \
+  --parser extracted/routeros-7.25.2-arm64/rootfs/nova/bin/parser \
   -o console-output
+routeros-extract extract all_packages-arm64-7.25.2.zip \
+  --console-parser extracted/routeros-7.25.2-arm64/rootfs/nova/bin/parser \
+  -o addons
+routeros-extract verify addons/all_packages-arm64-7.25.2 \
+  --source all_packages-arm64-7.25.2.zip
 routeros-extract completion zsh > _routeros-extract
 ```
 
@@ -157,9 +162,11 @@ not imply that every file has the same CPU type: RouterOS packages can contain
 together. ELF headers and the extracted manifests are the authority for an
 individual file's architecture.
 
-All 99 NPKs in the supplied test set passed, including 90 add-ons delivered
-in eight ZIP archives. See [docs/VALIDATION.md](docs/VALIDATION.md) for versions,
-per-architecture counts, reference comparisons, and build checks.
+Validation covers the main packages and add-on ZIP archives for every final
+RouterOS release from 7.24.2 through 7.25.2, including the 7.24.6 and 7.24.7
+long-term releases, across all eight architectures. The 7.24.6 MIPSBE and
+SMIPS console fix is newer than the 1.1.1 release.
+[Validation matrix and source hashes](docs/VALIDATION.md#releases-through-7252)
 
 The package reader also preserves PPC file-container variants. If the same
 original path occurs with different four-byte variant tags, later records are

@@ -10,6 +10,10 @@ The console command-definition images under `nova/lib/console/*.mem` have
 their own [format and decoder documentation](CONSOLE-MEM.md), including the
 fixed-address object layout and the currently supported parser builds.
 
+The release validation covers main packages and add-on ZIP archives across
+the eight supported package architectures.
+[Validation matrix](VALIDATION.md#releases-through-7252)
+
 ## NPK framing
 
 An NPK begins with:
@@ -32,10 +36,13 @@ files. A signature section is evidence to preserve, not proof of authenticity.
 Text previews in metadata are capped at 4 KiB and marked `text_truncated`
 when shortened; raw section files always retain the complete bytes.
 
-Package-info and main-info records use a 16-byte NUL-padded name followed by
-version fields and a Unix build timestamp. The architecture and channel text
-are advisory metadata; the ELF headers and payloads determine the architecture
-of individual binaries.
+Package-info and main-info records start with a 16-byte NUL-padded name.
+Bytes 16 through 19 contain the patch, channel byte, minor, and major version
+fields in that order. The metadata renders the version as `major.minor.patch`,
+so the 7.25 release reports `7.25.0`. The four bytes at offset 20 hold the
+little-endian Unix build timestamp. The architecture and channel text are
+advisory metadata. The ELF headers and payloads determine the architecture of
+individual binaries.
 
 ## File-container records
 
@@ -85,7 +92,7 @@ are saved with their exact compressed bytes, decoded bytes, offsets, hashes,
 integrity-check type, and Linux banners where present. Nested decoded ELF and
 CPIO payloads are scanned recursively within bounded depth and size limits.
 
-The validated architecture matrix is:
+These boot wrappers were observed in the RouterOS 7.24.2 baseline.
 
 | Input family | Observed form in the validation corpus |
 |---|---|
@@ -141,6 +148,9 @@ For file-container and rootfs entries, `analyze` can additionally produce:
 * ELF header, section, dynamic dependency, and architecture inventories;
 * selected printable-string reports and kernel-module `.modinfo` fields;
 * JSON summaries and source-to-output hashes.
+
+With a matching parser, console reports include command paths, parameter
+records, help, and strings.
 
 In `summary.json`, `kernels` counts analyzed boot objects, including separate
 initrd and EFI files; it is not a count of distinct Linux kernel builds.

@@ -1,0 +1,1218 @@
+{
+  "schema": 1,
+  "validation_date": "2026-11-23",
+  "platform": "darwin/arm64",
+  "go_version": "1.27.4",
+  "baseline_extractor_version": "1.1.1",
+  "baseline_extractor_revision": "de2a0e51c79fe8263f1d04881d61270aa74c1f61",
+  "baseline_extractor_sha256": "a5a76edadfdca1ea25ffbe97f4fcf49e353d6d6babc5b06bc7fdcfd727f54abc",
+  "fixed_extractor_sha256": "3c4208f6c156ec47c52a71915582a53a2d6ab58225e2bda2fadb3cbb371ac6d1",
+  "fixed_extractor_full_cli_retest": [
+    "7.24.6"
+  ],
+  "fixed_decoder_replay": {
+    "decoded_images": 1296,
+    "byte_identical_previous_outputs": 1294
+  },
+  "download_base_url": "https://download.mikrotik.com/routeros/",
+  "method": "Full CLI extraction with --no-symlinks and source/artifact verification. Matching main parser used for add-on archives. Every numeric console image found in filesystem manifests decoded.",
+  "rows": [
+    {
+      "version": "7.24.2",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.2-arm.npk",
+          "sha256": "880be4e776ba8b1d406bcf77dc6738189623e1b5dd6ef3e4fb915ecf60e9636e",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30034
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.2.zip",
+          "sha256": "9ce7f1a2b04affee19215be2ac64d855a6d33d09b01f5ed2d3cff07c826f4a33",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.2-arm64.npk",
+          "sha256": "ea79bd20b0d909e286abf3329f0249ef85c2aa28bfdfc96f2a3012958de395a8",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30035
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.2.zip",
+          "sha256": "4afdd6d6a3a6102553672157594f7d9020fdbc3a273ec5cf7f7c1c87cf4a006c",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.2-mipsbe.npk",
+          "sha256": "31d8c44fc5cb8e0df548c3bc96d908e73d4e70bdabd7287b75750c832885d823",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30028
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.2.zip",
+          "sha256": "1bce20b159881548eafa52477fb2b556878f045e4510178524838a194f9364bb",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.2-mmips.npk",
+          "sha256": "ba5acc9e644e20080af74a44f327780b5a43e53c6f9b5ae348defdeec1d39f17",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29842
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.2.zip",
+          "sha256": "e4baf2dcd6e65cd5a6f141fe324ee352bdc04b543ecfdf5494081bafcdc5675b",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.2-ppc.npk",
+          "sha256": "9428a24386317a64dac32526b55bc2e5bea39f1970c5ff1beb39757025c2fb9c",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29799
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.2.zip",
+          "sha256": "d74fa15abbc401782667bc8e2790c4e49dca37d94f08776a6104b269669bcba1",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.2-smips.npk",
+          "sha256": "bb040235b78693c9eebde9d0ad74a7e343f07ac79b63744aaf341511beba86bf",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.2.zip",
+          "sha256": "7662c1fabc7c1e58b1547d8c65a70f323a37b290ad32ca7a6ec5e594873aa20a",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.2-tile.npk",
+          "sha256": "40c79d5635f9005d9c0a6c0295ac2c93dcd1c6e1781ff4abb0d8177eb790333e",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30006
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.2.zip",
+          "sha256": "c8afccb05ae7505fcf23282b0641c49901cb1222b9d5f48f2b3017ed35766e6e",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.2.npk",
+          "sha256": "26f0331e2c4aa60e019135bd09ab7da83922b3bf44261af82377a6b58b3b7911",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29968
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.2.zip",
+          "sha256": "26dbe3f32b9f9f4a669c53a5a0d35d0d663862d6959c8d20c66e00bea442a449",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.24.3",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.3-arm.npk",
+          "sha256": "581efa10ec7f650e1902e8c329b1140deb4e66aea0c12c8f28249fa92b66f911",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30042
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.3.zip",
+          "sha256": "fa9b7caa6471c691510a79b1495954d8052289296f82c702f089dfcbf60da491",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.3-arm64.npk",
+          "sha256": "5af56855988dc2934cc518ed7e6e73e9393ad68ebd02ab0cd62f9f4fca306270",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30043
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.3.zip",
+          "sha256": "88e35b90cab6618692c5e1e705c8e9b1a7509b59f3890d9b71be7d531ecd744f",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.3-mipsbe.npk",
+          "sha256": "495a5bc07f8ed1530a758a2789044416a1ed787d2897c5d8eca7aaecf315d1ba",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30036
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.3.zip",
+          "sha256": "e74b0d6443520a41d46ab2600c64496dd87cea4afd1a1d456d78a0545828a8bb",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.3-mmips.npk",
+          "sha256": "a3b74a40b14b9be8de8b72eb8e61ce3a79397e6aa2e4bb42456ac6fae2ce11e9",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29850
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.3.zip",
+          "sha256": "9aa822fba4c403262c514e71c12a852720a1f39f67a50c8d2b385c90dec8dffd",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.3-ppc.npk",
+          "sha256": "acdeac9366acc3466eeaa28882a1cfa8609cf3f872c0ff00124215d0af97d609",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29807
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.3.zip",
+          "sha256": "49b2af81f92d7af0d78c43f6fe1555154265a2243a1aa6b79a48e332b269bd2f",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.3-smips.npk",
+          "sha256": "2eea97b5cf292525ede5f84c1afa59207aeab463424bc3cf32c4339c497255a6",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.3.zip",
+          "sha256": "895b0f6c17d9440568219cf05621b92caf9b71b83b8cb72f3fb5873d71aac05e",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.3-tile.npk",
+          "sha256": "5a382ebdc87419323c2da356c6177f29b0605c856f1f4b1e4cd99860d0ba062e",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30014
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.3.zip",
+          "sha256": "e2f65bab7b86e9d8151b5a214f1aa06bfa716fd2253404bdd8edb62cdf2265f6",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.3.npk",
+          "sha256": "4f098be46f5429d15fb49e6b12939fd58fc9e394d45074039bfef6418d5d64ff",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29976
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.3.zip",
+          "sha256": "e5842d7d8027127a0329cc90340fa5db0d568b648247ac855f10abf8878cf16f",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.24.4",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.4-arm.npk",
+          "sha256": "97bf6d35d8f4754d69ed4a8cb8f459390f84c81f69374645f3b616ac4c56bc25",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30042
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.4.zip",
+          "sha256": "f399d12e9983f8de587e811e452110c49af1b86c9d1b763c49b6577a254ff65b",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.4-arm64.npk",
+          "sha256": "627b9a58820b3b7a754992e1330341ffb61f8e61aa72e186bcbc2c55ebc06793",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30043
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.4.zip",
+          "sha256": "5099237f3f2be5ec57312af204e2ddef43dbadf09409d9a79b65ca2a190bbcb2",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.4-mipsbe.npk",
+          "sha256": "e4af0119354c32cc93cbea85c9e4c3f8dfdccc8718f81fda8f9cae8bfd81be6a",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30036
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.4.zip",
+          "sha256": "fd30de1eb7c0bb17e23820b0a33d5dfc96109426fbbdc041a344eeea13bd534f",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.4-mmips.npk",
+          "sha256": "f7366d9e35818450d6627e520e808de42119650ceb5f38494ba7e70c8a4befcd",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29850
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.4.zip",
+          "sha256": "8e692c39c7c34d074c60346ec13c472be945253c1f2c8189b7b4cc6334a080f3",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.4-ppc.npk",
+          "sha256": "f3e30b09f6f04b98632bd1b0ec5f6887db46b6184cc649eaaaf5dbdfbe5cd07a",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29807
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.4.zip",
+          "sha256": "a35b7298b97fed9c831ac21e628ec6ab9d8ff0bab954ce8d7d768e2140dccb1c",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.4-smips.npk",
+          "sha256": "0bb5ae1171ffe347ec0d26ff8543f26bfcfaa1ad28173f181195bd4f8ca6c868",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.4.zip",
+          "sha256": "71b0a85b7688549551d3fae287f4cb757167b62aae597206922428357b1c82be",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.4-tile.npk",
+          "sha256": "f90da48c240c0aac24ecfe1653f7964901c588e4fb90e1e6f7ddd1178cc5d7c0",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30014
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.4.zip",
+          "sha256": "abb3907ece823b64727eb6946d2b6e3567dfef1a106481d7913a5bd61b81aa0b",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.4.npk",
+          "sha256": "46de2e3d61a6f5cdb7142f5cb62e3f2e4a28e283ef4fa17984b5511882031a94",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29976
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.4.zip",
+          "sha256": "4d2822120bd5db2005488acaa4775a44a5fe8c9be8c23b9c50af76bf9938e62f",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.24.5",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.5-arm.npk",
+          "sha256": "62f02a07d8262ffe4e7dde57566a8c30b82a8ff05383e7bd8bc75c4c297c8d4e",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30042
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.5.zip",
+          "sha256": "4789481c0af9879cd701d4361dbfcc3cf2cf76603fc62982924a31bffa32795b",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.5-arm64.npk",
+          "sha256": "859b4f3a223a7982edfe07c31cc455b127f298cbba1da18de372a43d1b448a11",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30043
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.5.zip",
+          "sha256": "486add4f24f785939e5ff79456d171bba962c8eb9ff1bcc7098c5d24e619d67c",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.5-mipsbe.npk",
+          "sha256": "f62f2272d2a374bf02e170260fd236f6681d6212a07ceb173d7843a0c3e327e9",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30036
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.5.zip",
+          "sha256": "ea992100ea1563d9d199a541be90432b61162ebfd30ada7ff17e7159775e5726",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.5-mmips.npk",
+          "sha256": "e87f62105de52b58f12dbb830398892ae72ab8397119deac4fd18953883c3d1a",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29850
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.5.zip",
+          "sha256": "85039d58a43bd84eaa5649759cd11cfa3e5b62803af44b51259a6804b99f6da3",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.5-ppc.npk",
+          "sha256": "732fa98cc7eddd66017c25d27c509d11d3be933b8089996147eaab6219005ff7",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29807
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.5.zip",
+          "sha256": "437d321fd42e94c8060cf819f185dcb6ee5d7f85fcf1dcf393b64da07463b9d4",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.5-smips.npk",
+          "sha256": "775675648af67a17159f30dcbb274444de0f2e1a7e55d21befaba5b6c2156bdc",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.5.zip",
+          "sha256": "5ee3039a5166ef5fcd6b4ceec2573209b76f418664613f414151a4f30f7d084d",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.5-tile.npk",
+          "sha256": "4b665c35a47db9edcafa6d72bcddbe140c7fd3a3534aca49c28c870f5cf75524",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30014
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.5.zip",
+          "sha256": "5d027c8cd6401c9afe2f494ac82f9f26a0bc0a3dbe9467fea445b36f50b2f1f6",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.5.npk",
+          "sha256": "d97831be323d1b2b0236f344fb9d275c3ed72b26432670753a8ea30bdd647394",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29976
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.5.zip",
+          "sha256": "6acfd80b3f6edfd23cea14bfcdbbb183a6258acb3aedb3d7b0a23f60a19e51c6",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.24.6",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.6-arm.npk",
+          "sha256": "5cfb4cd25386d19502d017013f3e28099e67a165f8b49d5e271a0ee9338c9a7a",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30042
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.6.zip",
+          "sha256": "7f158e1686eb4824fd1baf0f698ff72f2592ecd29b88a994c16d493467ef0636",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.6-arm64.npk",
+          "sha256": "52ec1ed9b4f26aef62666d23a240c8eb1bc5339813bd6034fbaad9c99c99ab5e",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30043
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.6.zip",
+          "sha256": "316080cb36e8be4203f82267565b6f5ce941af07b62550c82f6f3e818586352b",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.6-mipsbe.npk",
+          "sha256": "4d1d30628ba50f7f77da003b33992bd18b7dc6f642f4fc945c0e880736c659ab",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30036
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.6.zip",
+          "sha256": "8f8561d04541e65026fddda69faaeee81e6d023fedef2c4649fb8f235a01b66b",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.6-mmips.npk",
+          "sha256": "946d2d86a593a76e9bc19eed25d42817d89592d653beeb613e442f9070280a91",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29850
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.6.zip",
+          "sha256": "41b90f64650ef726e5c553b19484b6120ac6386c2056f90b77d37a0cd62db293",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.6-ppc.npk",
+          "sha256": "6315995d644cc64debace81a4ab82b89a2282b3f4889cd8cd372e592032c9ed9",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29807
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.6.zip",
+          "sha256": "bb11b5af5404ece059f69bef053130fee8e90ad39f73091ca996914024261a56",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.6-smips.npk",
+          "sha256": "4d3af2e356d4bfa8764369ce1c5622e3e077fc02b89904f55b4e66428037754b",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.6.zip",
+          "sha256": "a966ea6b34b751043f857d6e5f9939c9c8ef8f8c1b3f9e3eb1f2d8ced17d6e80",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.6-tile.npk",
+          "sha256": "76a1c4893ab25a4c0524ac7ecdd9fdceb5c0ef362546de5326f61446de54c558",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30014
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.6.zip",
+          "sha256": "ac4aa8603da3f51821a792378f21d60cd22e25b2a92799957d9eb787ecd54812",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.6.npk",
+          "sha256": "4c0a21fda7b2ac52e628de92b2b054db0e9e93fc61a1e0a23a50b2b2a1b0f3a4",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29976
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.6.zip",
+          "sha256": "e8c07b6aa4ad5f6168d8858b581a5eeb955355da87c9dfba512866c47585a907",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.24.7",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.24.7-arm.npk",
+          "sha256": "4e870ccbbb85ba9f46d8b2698fd4e85f681dd6261ee2ddb0dbb70340ece4c684",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30042
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.24.7.zip",
+          "sha256": "e4dd62b0e9b0dd650d2bf7a7ef4db88179ac961aa1c4f0bedc1b1df8b086d751",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7375
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.24.7-arm64.npk",
+          "sha256": "e798c9e01759c95c6b2c4f0b03af93e38edbf4b498555886ecde0482d14cf8bd",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30043
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.24.7.zip",
+          "sha256": "ccfcdd3e75de9bcf0e410a5d1f84cf81113b0dbc81b7ec60cdfd2df4dc881f74",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7727
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.24.7-mipsbe.npk",
+          "sha256": "18fe42eeab483f3863380b56dd9fe3c7dff14f4771fc2e6ff8471458638b50fd",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30036
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.24.7.zip",
+          "sha256": "d9de6943068a2e3e0f81428bb74a47564f40656d7c6d25343c1ac8228b7a0501",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5296
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.24.7-mmips.npk",
+          "sha256": "fcab3a6c1f77ca1e8d8230e58ab4897a5c3f796c6d87f4b6e3d9765cc5d29692",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29850
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.24.7.zip",
+          "sha256": "165da2933d3d9c2a3f96b06251734364529ba59b9adc8df6e99772f6b8db188a",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6336
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.24.7-ppc.npk",
+          "sha256": "9c18df1eace39b2197c9c6c8ddbec08f4010406a4ea6be0767bf9f534bdc4804",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 29807
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.24.7.zip",
+          "sha256": "e735af86b734d74d7863aacf74a0c556e3ea07fef1850b1471fde7001aa0530a",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5295
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.24.7-smips.npk",
+          "sha256": "2373ba9f8d8dd1b97ea6fc3eed2dfbcd8ad587aa906ebf029929b142eccc4a9d",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20071
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.24.7.zip",
+          "sha256": "1c0dd5b1d989d465c066cea80a540203c9bbb245bd12ad7c4d8482ee47655ba8",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3370
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.24.7-tile.npk",
+          "sha256": "47ca0b394b9df690982a39d149cac4938e4563970b45871fe036a8fa0ec69c45",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30014
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.24.7.zip",
+          "sha256": "6369c87dd5939bb370d21ed4600a6de5a940ea9967e9a56bcfda8867a8091d10",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6450
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.24.7.npk",
+          "sha256": "a444006b4b642518867444ff0290224b6df07a1bf4fb8a2fb3077ff0308c2394",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 29976
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.24.7.zip",
+          "sha256": "bcb1549794cd895ca1930021c6680420ae5a5d02af6cf9d1ee49269201269249",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7036
+        }
+      ]
+    },
+    {
+      "version": "7.25",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.25-arm.npk",
+          "sha256": "7b151bc1056f251cad0008cf43ed4a8d4f1ce72acf81377123b8465724cae3ec",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30444
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.25.zip",
+          "sha256": "cf18e715e7ff8087f14af9e58cfefad1855287d8d51dd9e8c48c0e158ebbd8d8",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7383
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.25-arm64.npk",
+          "sha256": "b70d35090dc4a3dd71ab97636b150506a5ee9ca1ae9a21f089b0c454ff52aa15",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30445
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.25.zip",
+          "sha256": "ad0f223a8608eb42b54e601e477713f9d6d7a16a77ca82054152f0a897d16c10",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7735
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.25-mipsbe.npk",
+          "sha256": "4c64d444496928928844ae37ca8f2083d7fb563f80f44f9f1d660ba30feae297",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30320
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.25.zip",
+          "sha256": "95b2bc4b8b603d6f44e1ab02f93375c4a84857918d7ee5d5a337d90df9d5a249",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5303
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.25-mmips.npk",
+          "sha256": "06b72b2d343c62c502ea8ad1b2df91b17f07492e93170c83dda3133b34c9338b",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30134
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.25.zip",
+          "sha256": "f349dd65763eef90c7150d9e6f5e0dd46a8ab9a22eefe95777b89713e75c32b6",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6343
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.25-ppc.npk",
+          "sha256": "d2c6d8294201776c71dfce34d83412ffba5acdf812aacfb04f7aaee4ae2500a5",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30090
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.25.zip",
+          "sha256": "30fc4c80755b0f42aafb3efa4917e4a03f23b4dd556f4db0cf575f1a2fbbd8f2",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5302
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.25-smips.npk",
+          "sha256": "a3f077aed34c462df5ac64b5ee4ed8137096fe22ddf91efff01a03dea3ffad02",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20223
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.25.zip",
+          "sha256": "bc1fa8174824b8ab5d001a78fd2937dfe0a9f1ecbf1c39b70f829518cf077930",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3375
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.25-tile.npk",
+          "sha256": "066d76192aafa8143a41b51f70e4985579eb7710cda5e48431bebc9e4b5182cf",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30298
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.25.zip",
+          "sha256": "a5ff8ed527587c0a2d6f382dcaf3c7f23c7a6f96b345d824c766bc495e6c1586",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6457
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.25.npk",
+          "sha256": "6c4e6b7556237e630ed94a43c06fc9ef7415fb89c96dc7809efe2833d36281bd",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 30260
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.25.zip",
+          "sha256": "af08dda7ce7c5d802c1302e63ec41221c899e28832118ec81ed373f556e098ca",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7044
+        }
+      ]
+    },
+    {
+      "version": "7.25.1",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.25.1-arm.npk",
+          "sha256": "b28dd1b94af94638b8a2c05054ec398e5d666951696c964eb829d8b9ce64821c",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30444
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.25.1.zip",
+          "sha256": "c1bc65698cd8fd83968ceb63e3e24f1d696ae3cac3ef198dfd1c5caaa1b0a4d1",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7383
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.25.1-arm64.npk",
+          "sha256": "61d12f91c13185464e77696f3babc19dba65f58c2cc2605fcbe6fa83f8078e0b",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30445
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.25.1.zip",
+          "sha256": "7ddc73976af0e68ed8093b7cc8e0bf2f6a665d7dcf53b3b99f048ca132dc0c38",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7735
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.25.1-mipsbe.npk",
+          "sha256": "82c8228aa7a2601270ae5b829d89cb4c434cab157f4fcacf4038eaf716df0722",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30320
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.25.1.zip",
+          "sha256": "0890cb0acbf4090756082d4dfd6dd4c9faedf409dd47cf3f09b55bb7d9ab86e0",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5303
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.25.1-mmips.npk",
+          "sha256": "76a606d36e71259e477752d1b09706ceaac7ca6fb5236f0dc671d61e6082e2e3",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30134
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.25.1.zip",
+          "sha256": "da9899fc7c1ce8b6e44ea3233994f6454e845f28f463f895b78dd0c40370d295",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6343
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.25.1-ppc.npk",
+          "sha256": "a5cbadea14c44175a749e2ff279ffb6e774dc755d2cbd5d802c2c7cff9ab7d05",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30090
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.25.1.zip",
+          "sha256": "e4425d06128df75085c4b5cf8448b702d17b1eaa1c940219d4c7be776cf5086c",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5302
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.25.1-smips.npk",
+          "sha256": "3150ede39c629a0e4d1b0eeb72e1aad34fbe1756b4b9a38af32b6a09d792988e",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20223
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.25.1.zip",
+          "sha256": "57f2787fee8e4cac91e9d6aba8bf7db7d638e4b90f1831b6d53e6664371eb171",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3375
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.25.1-tile.npk",
+          "sha256": "48fa9e5b9e5ac876c384751fc64ea02aa08fbe814dce14e6d071c63204e2f7db",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30298
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.25.1.zip",
+          "sha256": "f582c076ee0a83cc5b195c46b1a79b7f69f659739a8043e13f8459d908239fc9",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6457
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.25.1.npk",
+          "sha256": "2f1ba940b15eea831d9ab8d4463c5e2ff0032a0cea3d08e5d7b9e63cd02e6c07",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 30260
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.25.1.zip",
+          "sha256": "12cf2b2725a505ac504c506578fbdee587ec999698e6a2dc533ca0837cfca169",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7044
+        }
+      ]
+    },
+    {
+      "version": "7.25.2",
+      "inputs": [
+        {
+          "architecture": "arm",
+          "file": "routeros-7.25.2-arm.npk",
+          "sha256": "4005d650b84916cfee8060974737fb1077d481de4af1a0d4549d0e5549af168f",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30444
+        },
+        {
+          "architecture": "arm",
+          "file": "all_packages-arm-7.25.2.zip",
+          "sha256": "61c3ca49c54f125f8810c1ca875a9950ce771a194d48171f9f408900bfb4034f",
+          "npks": 18,
+          "console_images": 13,
+          "console_nodes": 7383
+        },
+        {
+          "architecture": "arm64",
+          "file": "routeros-7.25.2-arm64.npk",
+          "sha256": "376117314e47159c615397a2087b5eaf596947bc144aeaa98cacbb49494a54dc",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30445
+        },
+        {
+          "architecture": "arm64",
+          "file": "all_packages-arm64-7.25.2.zip",
+          "sha256": "27fe83ae3375cca052353a5572ffeef9a335820b9ede863e13f0609196555cdf",
+          "npks": 18,
+          "console_images": 14,
+          "console_nodes": 7735
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "routeros-7.25.2-mipsbe.npk",
+          "sha256": "1866327b930b166da11d883eaa55db484d46eb63ce5d06f4f93201cdc082d83a",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30320
+        },
+        {
+          "architecture": "mipsbe",
+          "file": "all_packages-mipsbe-7.25.2.zip",
+          "sha256": "978867a5faffadbacdf3aaa46eb2215978fca3170894dcec7e4b54490d2af72f",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5303
+        },
+        {
+          "architecture": "mmips",
+          "file": "routeros-7.25.2-mmips.npk",
+          "sha256": "414ad550bf4d7c18e4cf3b3ad5adbc8549245a36f70221a8b8c3e5e5472ff05d",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30134
+        },
+        {
+          "architecture": "mmips",
+          "file": "all_packages-mmips-7.25.2.zip",
+          "sha256": "32ca8b337dcade3b20d3095a966318c085a6b1a508caed75f493b0a4a52de691",
+          "npks": 10,
+          "console_images": 10,
+          "console_nodes": 6343
+        },
+        {
+          "architecture": "ppc",
+          "file": "routeros-7.25.2-ppc.npk",
+          "sha256": "254ac55f21690ef24fd11ef2c7b0eb0b9150284a684d8bb1fe4fe3263457b597",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30090
+        },
+        {
+          "architecture": "ppc",
+          "file": "all_packages-ppc-7.25.2.zip",
+          "sha256": "556d4d0cfb980671f19ef64c3bf9406027b16d181781614f94e8011791434f50",
+          "npks": 9,
+          "console_images": 9,
+          "console_nodes": 5302
+        },
+        {
+          "architecture": "smips",
+          "file": "routeros-7.25.2-smips.npk",
+          "sha256": "9f9244599f37f36675ec40892fc4c42f8e4a4bd9b7251b691b5b3179e03e1e72",
+          "npks": 1,
+          "console_images": 6,
+          "console_nodes": 20223
+        },
+        {
+          "architecture": "smips",
+          "file": "all_packages-smips-7.25.2.zip",
+          "sha256": "eaec091dcbe0c26c5477d42927d2be11a046c400f8259d52e5cb7676f6e3b6df",
+          "npks": 3,
+          "console_images": 3,
+          "console_nodes": 3375
+        },
+        {
+          "architecture": "tile",
+          "file": "routeros-7.25.2-tile.npk",
+          "sha256": "30ba8ea31bc13a7ca5e2be66863152148b119b58acff135cada93bc292d5a28c",
+          "npks": 1,
+          "console_images": 8,
+          "console_nodes": 30298
+        },
+        {
+          "architecture": "tile",
+          "file": "all_packages-tile-7.25.2.zip",
+          "sha256": "d8825f511ba080f8301e6c9fc070dd2e7ff925cf2a564e8aab1c118847fbf438",
+          "npks": 11,
+          "console_images": 11,
+          "console_nodes": 6457
+        },
+        {
+          "architecture": "x86",
+          "file": "routeros-7.25.2.npk",
+          "sha256": "a78d97144fcb858e2955eb1f1c883a352569fe79a00b81926b4c2a707943f565",
+          "npks": 1,
+          "console_images": 9,
+          "console_nodes": 30260
+        },
+        {
+          "architecture": "x86",
+          "file": "all_packages-x86-7.25.2.zip",
+          "sha256": "da46a7ad6bbe2a8031cef55f7be8a6a2eccb7b1895e349b31e8e9ad0a0ae8a84",
+          "npks": 12,
+          "console_images": 12,
+          "console_nodes": 7044
+        }
+      ]
+    }
+  ]
+}
